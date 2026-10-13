@@ -1,0 +1,4 @@
+.navbar { display: flex; gap: 20px; padding: 14px 24px; background: #00462A; }
+.navbar a { color: white; text-decoration: none; font-weight: bold; }
+.navbar a:hover { text-decoration: underline; }
+main { padding: 24px; }
