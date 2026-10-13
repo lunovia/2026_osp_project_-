@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Team Project{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/">Home</a>
+    <a href="/product/new">상품 등록</a>
+    <a href="/products">상품 목록</a>
+    <a href="/review/new">리뷰 등록</a>
+    <a href="/reviews">리뷰 목록</a>
+  </nav>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
