@@ -1,13 +1,26 @@
 {% extends "base.html" %}
+
+{% block title %}Registration Result{% endblock %}
+
 {% block content %}
-<h2>상품 등록 결과</h2>
+<h1>Product Registration Result</h1>
 
-<p>상품명: {{ data['product_name'] }}</p>
-<p>판매자 ID: {{ data['seller_id'] }}</p>
-<p>가격: {{ data['price'] }}</p>
-<p>주소: {{ data['address'] }}</p>
-<p>상태: {{ data['status'] }}</p>
-<p>이메일: {{ data['email'] }}</p>
+<p><strong>Product name:</strong> {{ product.product_name }}</p>
+<p><strong>Seller ID:</strong> {{ product.seller_id }}</p>
+<p><strong>Price:</strong> {{ product.price }}</p>
+<p><strong>Address:</strong> {{ product.address }}</p>
+<p><strong>Status:</strong> {{ product.status }}</p>
+<p><strong>Email:</strong> {{ product.email }}</p>
 
-<img src="{{ url_for('static', filename='uploads/' ~ picture) }}" width="300">
+<h2>Picture</h2>
+
+{% if product.picture_filename %}
+    <img
+        src="{{ url_for('static', filename='uploads/' + product.picture_filename) }}"
+        alt="Product picture"
+        width="300"
+    >
+{% else %}
+    <p>No picture uploaded.</p>
+{% endif %}
 {% endblock %}
