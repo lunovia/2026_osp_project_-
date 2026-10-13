@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Register Product{% endblock %}
+
+{% block content %}
+<h1>Register a Product</h1>
+
+<form action="{{ url_for('register_product') }}"
+      method="post"
+      enctype="multipart/form-data">
+
+    <label>Product name:</label>
+    <input name="product_name" type="text" required>
+
+    <label>Seller ID:</label>
+    <input name="seller_id" type="text" required>
+
+    <label>Price:</label>
+    <input name="price" type="number" required>
+
+    <label>Address:</label>
+    <input name="address" type="text" required>
+
+    <label>Status:</label>
+    <select name="status" required>
+        <option value="Available">Available</option>
+        <option value="Reserved">Reserved</option>
+        <option value="Sold">Sold</option>
+    </select>
+
+    <label>Email:</label>
+    <input name="email" type="email" required>
+
+    <label>Picture:</label>
+    <input name="picture" type="file"
+           accept="image/png,image/jpeg,image/gif,image/webp"
+           required>
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

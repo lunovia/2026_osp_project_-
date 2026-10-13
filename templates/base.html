@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EwhaMarket{% endblock %}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background: #1f3044;
+            padding: 20px;
+        }
+
+        nav a {
+            color: white;
+            margin-right: 20px;
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        input, select {
+            margin-top: 5px;
+            padding: 8px;
+            width: 100%;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">EwhaMarket</a>
+        <a href="{{ url_for('product_list') }}">Products</a>
+        <a href="{{ url_for('review_list') }}">Reviews</a>
+        <a href="{{ url_for('register_product') }}">Register Product</a>
+        <a href="{{ url_for('register_review') }}">Register Review</a>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

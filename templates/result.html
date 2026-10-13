@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Registration Result{% endblock %}
+
+{% block content %}
+<h1>Product Registration Result</h1>
+
+<p><strong>Product name:</strong> {{ product.product_name }}</p>
+<p><strong>Seller ID:</strong> {{ product.seller_id }}</p>
+<p><strong>Price:</strong> {{ product.price }}</p>
+<p><strong>Address:</strong> {{ product.address }}</p>
+<p><strong>Status:</strong> {{ product.status }}</p>
+<p><strong>Email:</strong> {{ product.email }}</p>
+
+<h2>Picture</h2>
+
+{% if product.picture_filename %}
+    <img
+        src="{{ url_for('static', filename='uploads/' + product.picture_filename) }}"
+        alt="Product picture"
+        width="300"
+    >
+{% else %}
+    <p>No picture uploaded.</p>
+{% endif %}
+{% endblock %}
