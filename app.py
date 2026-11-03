@@ -74,6 +74,39 @@ def review_list():
     return render_template("review_list.html")
 
 
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "GET":
+        return render_template("signup.html")
+
+    user_id = request.form.get("user_id", "").strip()
+    password = request.form.get("password", "")
+    nickname = request.form.get("nickname", "").strip()
+
+    if not user_id or not password or not nickname:
+        return render_template(
+            "signup.html",
+            error="Please fill in all fields."
+        ), 400
+
+    if len(password) < 6:
+        return render_template(
+            "signup.html",
+            error="Password must be at least 6 characters."
+        ), 400
+
+    password_hash = generate_password_hash(password)
+
+    # TODO: Check for duplicate IDs in Firebase.
+    # TODO: Store user_id, nickname and password_hash in Firebase.
+
+    return render_template(
+        "signup.html",
+        error="Firebase database is not connected yet."
+    ), 501
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
     
