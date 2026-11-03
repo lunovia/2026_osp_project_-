@@ -77,6 +77,7 @@ def review_list():
     return render_template("review_list.html")
 
 
+
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "GET":
@@ -86,27 +87,61 @@ def signup():
     password = request.form.get("password", "")
     nickname = request.form.get("nickname", "").strip()
 
+    # 1. 필수 입력값 확인
     if not user_id or not password or not nickname:
         return render_template(
             "signup.html",
             error="Please fill in all fields."
         ), 400
 
+    # 2. 비밀번호 길이 확인
     if len(password) < 6:
         return render_template(
             "signup.html",
             error="Password must be at least 6 characters."
         ), 400
 
+    # 3. Firebase에서 사용할 수 없는 ID 문자 확인
+    invalid_chars = ".#$[]/"
+
+    if any(char in user_id for char in invalid_chars):
+        return render_template(
+            "signup.html",
+            error="ID contains invalid characters."
+        ), 400
+
+    # 4. 비밀번호 해시 생성
     password_hash = generate_password_hash(password)
 
-    # TODO: Check for duplicate IDs in Firebase.
-    # TODO: Store user_id, nickname and password_hash in Firebase.
+    # 5. Firebase에 사용자 저장
+    try:
+        database = DBhandler()
 
+        created = database.create_user(
+            user_id,
+            nickname,
+            password_hash
+        )
+
+        if not created:
+            return render_template(
+                "signup.html",
+                error="This ID is already taken."
+            ), 409
+
+    except Exception:
+        app.logger.exception("Signup database error")
+        return render_template(
+            "signup.html",
+            error="Unable to create account. Please try again."
+        ), 500
+
+    # 6. 회원가입 성공
     return render_template(
         "signup.html",
-        error="Firebase database is not connected yet."
-    ), 501
+        success="Account created successfully!"
+    )
+
 
 
 
