@@ -76,4 +76,39 @@ def review_list():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+//회원가입 기
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "GET":
+        return render_template("signup.html")
+
+    email = request.form.get("email", "").strip()
+    password = request.form.get("password", "")
+    confirm_password = request.form.get("confirm_password", "")
+
+    if not email or not password or not confirm_password:
+        return render_template(
+            "signup.html",
+            error="Please fill in all fields."
+        ), 400
+
+    if len(password) < 6:
+        return render_template(
+            "signup.html",
+            error="Password must be at least 6 characters."
+        ), 400
+
+    if password != confirm_password:
+        return render_template(
+            "signup.html",
+            error="Passwords do not match."
+        ), 400
+
+    # TODO: Create user account using Firebase Authentication.
+    return render_template(
+        "signup.html",
+        error="Account creation is not connected yet."
+    ), 501
+
     
