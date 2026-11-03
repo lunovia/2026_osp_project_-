@@ -1,9 +1,12 @@
-import os
+﻿import os
 import uuid
+import hashlib
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
+from database import DBhandler
+DB = DBhandler()
 
 app = Flask(__name__)
 
@@ -56,6 +59,8 @@ def register_product():
         "picture_filename": picture_filename,
     }
 
+    DB.insert_item(product["product_name"], request.form, picture_filename)
+
     return render_template("result.html", product=product)
 
 
@@ -78,8 +83,17 @@ def login():
     return render_template("login.html")
 
 
+
+#회원가입 기
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+	if request.method == "GET":
+		return render_template("signup.html")
+	data = request.form
+	pw_hash = hashlib.sha256(data["password"].encode("utf-8")).hexdigest()
+	if DB.insert_user(data, pw_hash):
+		return redirect(url_for("login"))
+	return render_template("signup.html", error="This ID already exists.")
+
 if __name__ == "__main__":
-    app.run(debug=True)
-
-
-    
+	app.run(debug=True)

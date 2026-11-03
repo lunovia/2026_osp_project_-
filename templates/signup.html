@@ -1,22 +1,18 @@
-<html>
-    <head>
+﻿{% extends "base.html" %}
 
-    </head>
-    <body>
-        <form>
-            <label>ID: </label>
-            <input type = "text" name = "id"><br>
-            <label>Password: </label>
-            <input type = "password" name = "password">
-            <br>
-            <label>Nickname:</label>
-            <input type = "text" name = "nickname"><br>
-            <label>Input ID and password, and click the the create button</label>
-            <br>
-            <button name = "createbtn">Create</button><br>
-        
+{% block title %}Sign Up{% endblock %}
 
-
-        </form>
-    </body>
-</html>
+{% block content %}
+<h1>Sign Up</h1>
+<form action="{{ url_for('signup') }}" method="post">
+<label>ID:</label>
+<input type="text" name="id" required>
+<label>Password:</label>
+<input type="password" name="password" required>
+<label>Nickname:</label>
+<input type="text" name="nickname" required>
+<p>Input ID and password, and click the create button</p>
+{% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+<button type="submit">Create</button>
+</form>
+{% endblock %}
