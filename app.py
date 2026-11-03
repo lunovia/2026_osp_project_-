@@ -73,6 +73,10 @@ def register_review():
 def review_list():
     return render_template("review_list.html")
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
