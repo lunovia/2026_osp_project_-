@@ -1,6 +1,7 @@
 import os
 import uuid
 
+from werkzeug.security import generate_password_hash
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 
