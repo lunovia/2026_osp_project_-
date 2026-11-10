@@ -1,20 +1,22 @@
-<html>
-    <head>
+{% extends "base.html" %}
 
-    </head>
-    <body>
-        <form>
-            <label>ID: </label>
-            <input type = "text" name = "id"><br>
-            <label>Password: </label>
-            <input type = "password" name = "password">
-            <br>
-            <label>Input ID and password, and click the login button</label>
-            <br>
-            <button name = "loginbtn">Login</button><br>
-            <button name = "signupbtn">Signup</button>
+{% block title %}Login{% endblock %}
 
+{% block content %}
+{% with mesg = get_flashed_messages() %}
+    {% if mesg %}
+        <script>alert("{{ mesg[0] }}")</script>
+    {% endif %}
+{% endwith %}
 
-        </form>
-    </body>
-</html>
+<h1>Login</h1>
+<form action="{{ url_for('login') }}" method="post">
+    <label>ID:</label>
+    <input type="text" name="id" required>
+    <label>Password:</label>
+    <input type="password" name="password" required>
+    <p>Input ID and password, and click the login button</p>
+    <button type="submit">Login</button>
+</form>
+<button onclick="location.href='{{ url_for('signup') }}'">Signup</button>
+{% endblock %}

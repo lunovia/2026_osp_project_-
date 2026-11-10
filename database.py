@@ -15,8 +15,9 @@ class DBhandler:
 		return True
 
 	def get_item(self, name):
-    	item = self.db.child("item").child(name).get()
-   		return item.val()
+		item = self.db.child("item").child(name).get()
+		return item.val()
+
 
 	def insert_user(self, data, pw):
 		user_info = {"id": data["id"], "pw": pw, "nickname": data["nickname"]}
@@ -33,3 +34,13 @@ class DBhandler:
 			if res.val()["id"] == id_string:
 				return False
 		return True
+
+	def find_user(self, id_, pw_):
+		users = self.db.child("user").get()
+		if users.val() is None:
+			return False
+		for res in users.each():
+			value = res.val()
+			if value["id"] == id_ and value["pw"] == pw_:
+				return True
+		return False
