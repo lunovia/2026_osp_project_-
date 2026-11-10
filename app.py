@@ -1,4 +1,5 @@
-﻿import os
+﻿import math
+import os
 import uuid
 import hashlib
 
@@ -14,6 +15,7 @@ UPLOAD_FOLDER = os.path.join(app.root_path, "static", "uploads")
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
+PER_PAGE = 4  # 한 페이지에 보여줄 상품 수 (2열 x 2행)
 
 
 def allowed_file(filename):
@@ -66,7 +68,20 @@ def register_product():
 
 @app.route("/products")
 def product_list():
-    return render_template("product_list.html")
+    page = request.args.get("page", 1, type=int)
+    data = DB.get_items()
+    page_count = max(1, math.ceil(len(data) / PER_PAGE))
+    page = min(max(page, 1), page_count)  # 범위 밖 페이지 번호 보정
+
+    start = (page - 1) * PER_PAGE
+    items = list(data.items())[start:start + PER_PAGE]  # [(상품명, {...}), ...]
+
+    return render_template(
+        "product_list.html",
+        items=items,
+        page=page,
+        page_count=page_count,
+    )
 
 
 @app.route("/products/<name>")

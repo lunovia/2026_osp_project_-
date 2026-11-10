@@ -15,8 +15,13 @@ class DBhandler:
 		return True
 
 	def get_item(self, name):
-    	item = self.db.child("item").child(name).get()
-   		return item.val()
+		item = self.db.child("item").child(name).get()
+		return item.val()
+
+	def get_items(self):
+		# {상품명: {...}} 딕셔너리 (Firebase 키 순서 = 이름순). 상품이 없으면 {}
+		items = self.db.child("item").get().val()
+		return items or {}
 
 	def insert_user(self, data, pw):
 		user_info = {"id": data["id"], "pw": pw, "nickname": data["nickname"]}

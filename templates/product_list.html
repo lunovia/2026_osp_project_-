@@ -1,8 +1,46 @@
 {% extends "base.html" %}
 
-{% block title %}상품 목록{% endblock %}
+{% block title %}Product List{% endblock %}
 
 {% block content %}
-<h1>상품 목록</h1>
-<p>등록된 상품을 확인하는 페이지입니다.</p>
+<style>
+    main { max-width: none; margin: 0; }
+    .items { border-collapse: collapse; }
+    .items td { padding: 0 16px 16px 0; vertical-align: top; }
+    .items img { display: block; width: 160px; height: 220px; object-fit: contain; }
+    .pagination a { margin-right: 6px; }
+</style>
+
+<table class="items">
+    {% for row in items | batch(2) %}
+    <tr>
+        {% for name, item in row %}
+        <td>
+            <div>Product name: {{ name }}</div>
+            {# TODO(다음 단계): 이미지를 클릭하면 product_detail 페이지로 이동 #}
+            {% if item.img_path %}
+            <img src="{{ url_for('static', filename='uploads/' ~ item.img_path) }}"
+                 alt="{{ name }}">
+            {% endif %}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+{% if not items %}
+<p>등록된 상품이 없습니다.</p>
+{% endif %}
+
+<div class="pagination">
+    {% if page > 1 %}
+    <a href="{{ url_for('product_list', page=page-1) }}">Prev</a>
+    {% endif %}
+    {% for p in range(1, page_count + 1) %}
+    <a href="{{ url_for('product_list', page=p) }}">{{ p }}</a>
+    {% endfor %}
+    {% if page < page_count %}
+    <a href="{{ url_for('product_list', page=page+1) }}">Next</a>
+    {% endif %}
+</div>
 {% endblock %}
