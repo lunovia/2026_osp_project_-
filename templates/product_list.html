@@ -16,8 +16,12 @@
     <tr>
         {% for name, item in row %}
         <td>
-            <div>Product name: {{ name }}</div>
-            {# TODO(다음 단계): 이미지를 클릭하면 product_detail 페이지로 이동 #}
+            <div>
+    Product name:
+    <a href="{{ url_for('product_detail', name=name) }}">
+        {{ name }}
+    </a>
+</div>
             {% if item.img_path %}
             <img src="{{ url_for('static', filename='uploads/' ~ item.img_path) }}"
                  alt="{{ name }}">
