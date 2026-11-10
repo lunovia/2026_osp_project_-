@@ -1,0 +1,41 @@
+
+.product-detail {
+    display: flex;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+}
+
+.product-image,
+.product-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.product-image img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.product-info h1 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.product-info h2 {
+    font-size: 26px;
+    margin-bottom: 30px;
+}
+
+.product-description p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+@media (max-width: 700px) {
+    .product-detail {
+        flex-direction: column;
+    }
+}
