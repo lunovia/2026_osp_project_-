@@ -12,11 +12,13 @@
     <main class="product-detail">
 
         <!--Product Image-->
-        <div class="product-image">
-            <img
-            src="{{ url_for('static', filename=product.image) }}"
-            alt="{{product.name}}">
-        </div>
+       <div class="product-image">
+    {% if product.img_path is defined and product.img_path %}
+    <img
+        src="{{ url_for('static', filename='uploads/' ~ product.img_path) }}"
+        alt="{{ product.name }}">
+    {% endif %}
+</div>
         <!--Product Information-->
         <div class ="product-info">
             <h1>{{product.name}}</h1>
@@ -24,7 +26,7 @@
 
             <div class="product-description">
             <p>Seller: {{ product.seller_id }}</p>
-            <p>Address:: {{ product.address }}</p>
+            <p>Address: {{ product.address }}</p>
             <p>Status: {{ product.status }}</p>
             <p>Email: {{ product.email }}</p> </div>
         </div>
