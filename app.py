@@ -69,6 +69,7 @@ def product_list():
     return render_template("product_list.html")
 
 
+
 @app.route("/products/<name>")
 def product_detail(name):
     product = DB.get_item(name)
@@ -76,12 +77,18 @@ def product_detail(name):
     if product is None:
         return "Product not found", 404
 
-    product["product_name"] = name
+    product["name"] = name
+
+    if product.get("img_path"):
+        product["image"] = "uploads/" + product["img_path"]
+    else:
+        product["image"] = None
 
     return render_template(
         "product_detail.html",
         product=product
     )
+
 
 
 @app.route("/reviews/register")
