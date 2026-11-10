@@ -43,20 +43,17 @@
 <body>
     <nav>
         <a href="{{ url_for('index') }}">EwhaMarket</a>
-
-                                {% if session.get('id') %}
+        {% if session.get('id') %}
             <span style="color: white;">Hello, {{ session['id'] }}!</span>
             <a href="{{ url_for('logout') }}">logout</a>
         {% else %}
-            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('login') }}">login</a>
             <a href="{{ url_for('signup') }}">Sign Up</a>
         {% endif %}
-        
-        <a href="{{ url_for('product_list') }}">Products</a>
-        <a href="{{ url_for('review_list') }}">Reviews</a>
-        <a href="{{ url_for('register_product') }}">Register Product</a>
-        <a href="{{ url_for('register_review') }}">Register Review</a>
-
+        <a href="{{ url_for('product_list') }}">List</a>
+        <a href="{{ url_for('review_list') }}">Review</a>
+        <a href="{{ url_for('register_product') }}">Register Items</a>
+        <a href="{{ url_for('register_review') }}">Register Reviews</a>
     </nav>
 
     <main>
