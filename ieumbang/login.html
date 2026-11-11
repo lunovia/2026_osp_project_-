@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이음방 로그인</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<!--
+  화면 상태: data-state = default | error | done
+  미리보기: login.html?state=error / login.html?state=done
+-->
+<body data-state="default">
+
+  <!-- ===== 로그인 화면 (기본 / 오류) ===== -->
+  <div class="frame" id="view-login">
+
+    <header class="brand">
+      <span class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>
+      </span>
+      <span class="brand-name">이음방</span>
+      <span class="brand-school">이화여자대학교</span>
+    </header>
+    <a class="help" href="#">도움이 필요하신가요?</a>
+
+    <section class="hero">
+      <span class="badge">이화인을 위한 자취방 릴레이</span>
+      <h1>살아본 사람이<br>알려주는 우리 동네.</h1>
+      <p class="hero-desc s-default">같은 학교 학생이 살던 방을 이어서 구해요.<br>시설 정보부터 생활용품까지, 직접 듣고 안심하세요.</p>
+      <p class="hero-desc s-error">입력한 정보를 다시 확인하고<br>학교 이메일로 안전하게 시작하세요.</p>
+
+      <div class="feature s-default">
+        <span class="feature-icon">+</span>
+        <div>
+          <strong>같은 학교라서, 더 안심되는 만남</strong>
+          <span>학교 이메일 인증을 마친 이화인만 이용할 수 있어요.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <p class="eyebrow s-default">다시 만나 반가워요</p>
+      <p class="eyebrow s-error">다시 확인해 주세요</p>
+      <h2 class="s-default">이음방 로그인</h2>
+      <h2 class="s-error">로그인할 수 없어요</h2>
+      <p class="card-sub s-default">내 방을 올리거나, 새 방을 찾아보세요.</p>
+      <p class="card-sub s-error">아이디 또는 비밀번호가 맞지 않아요.</p>
+
+      <form id="login-form" novalidate>
+        <label class="label" for="uid">아이디</label>
+        <input class="input" id="uid" name="uid" type="text" value="ewha_kim" autocomplete="username">
+
+        <label class="label label-2" for="pw">비밀번호</label>
+        <div class="pw-wrap">
+          <input class="input" id="pw" name="pw" type="password" value="••••••••••" autocomplete="current-password">
+          <button type="button" class="eye s-default" id="eye" aria-label="비밀번호 보기">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+
+        <div class="alert s-error" role="alert">
+          <span class="alert-icon">!</span>
+          <div>
+            <strong>아이디 또는 비밀번호가 올바르지 않아요.</strong>
+            <span>다시 확인해 주세요.</span>
+          </div>
+        </div>
+
+        <button class="btn" type="submit">
+          <span class="s-default">로그인</span><span class="s-error">다시 로그인</span>
+        </button>
+      </form>
+
+      <p class="links s-default"><a href="#">아이디 찾기</a><i></i><a href="#">비밀번호 재설정</a></p>
+      <p class="signup s-default">아직 이음방 회원이 아니신가요? <a href="signup.html">회원가입</a></p>
+    </section>
+  </div>
+
+  <!-- ===== 로그인 완료 화면 ===== -->
+  <div class="done" id="view-done">
+    <div class="done-card">
+      <header class="brand brand-light">
+        <span class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#206B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>
+        </span>
+        <span class="brand-name">이음방</span>
+        <span class="brand-school">이화여자대학교</span>
+      </header>
+    </div>
+    <div class="done-body">
+    <span class="check-badge">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#206B57" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 33l14 14 27-30"/></svg>
+    </span>
+    <h2 class="done-title">로그인이 완료되었어요!</h2>
+    <p class="done-sub">안전하게 로그인했어요.</p>
+    <a class="done-btn done-btn-white" href="map.html">이음방 시작하기</a>
+    <button class="done-btn done-btn-ghost" type="button" id="logout">로그아웃</button>
+    <p class="done-note">살아본 사람의 정보로 더 안심되는 자취</p>
+    </div>
+  </div>
+
+  <script>
+    // 데모용 로그인 처리: 실제 서비스에서는 서버 인증 API로 교체하세요.
+    (function () {
+      var DEV_BYPASS = true;   // ← 백엔드 연결 후 false 로 변경
+      var body = document.body;
+      var setState = function (s) { body.setAttribute('data-state', s); };
+
+      var q = new URLSearchParams(location.search).get('state');
+      if (q === 'error' || q === 'done') setState(q);
+
+      document.getElementById('login-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = document.getElementById('pw').value;
+        var id = document.getElementById('uid').value.trim();
+        // 백엔드 연결 전에는 DEV_BYPASS = true → 아이디·비밀번호를 비우지만 않으면 로그인 성공
+        // (비우고 누르면 오류 화면 확인 가능). 백엔드 연결 후에는 false 로 바꾸고 아래 TODO 에 API 결과를 연결하세요.
+        if (DEV_BYPASS) { setState(id && pw ? 'done' : 'error'); return; }
+        // TODO: fetch('/api/login', ...) 결과로 분기 (임시: 비밀번호 ewha1234! 이면 성공)
+        setState(pw === 'ewha1234!' ? 'done' : 'error');
+      });
+
+      document.getElementById('pw').addEventListener('focus', function () {
+        if (this.value === '••••••••••') this.value = '';
+      });
+
+      document.getElementById('eye').addEventListener('click', function () {
+        var pw = document.getElementById('pw');
+        pw.type = pw.type === 'password' ? 'text' : 'password';
+      });
+
+      document.getElementById('logout').addEventListener('click', function () {
+        setState('default');
+      });
+    })();
+  </script>
+</body>
+</html>

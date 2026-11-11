@@ -1,0 +1,327 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+
+:root {
+  --green: #206b57;
+  --green-dark: #0f3f30;
+  --green-light: #e3f0ea;
+  --text: #1b1f1d;
+  --gray: #6b726e;
+  --border: #d9dfdb;
+  --bg: #f6f8f5;
+  --red: #c94f45;
+  --red-bg: #fff5f3;
+  --red-line: #e07a70;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; }
+
+body {
+  font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  color: var(--text);
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  min-width: 1420px;
+}
+
+/* ---------- 상태 전환 ---------- */
+body[data-state="default"] .s-error,
+body[data-state="error"] .s-default { display: none !important; }
+body[data-state="done"] #view-login { display: none; }
+body:not([data-state="done"]) #view-done { display: none; }
+
+/* ---------- 프레임 ---------- */
+.frame {
+  position: relative;
+  width: 1370px;
+  height: 1065px;
+  background: var(--bg);
+  border: 1px solid #e3e7e4;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+/* ---------- 브랜드 ---------- */
+.brand {
+  position: absolute;
+  left: 72px;
+  top: 61px;
+  display: flex;
+  align-items: center;
+}
+.brand-icon {
+  width: 54px; height: 54px;
+  border-radius: 14px;
+  background: var(--green);
+  display: grid; place-items: center;
+}
+.brand-icon svg { width: 30px; height: 30px; }
+.brand-name {
+  margin-left: 20px;
+  font-size: 30px; font-weight: 800;
+  color: var(--green);
+  letter-spacing: -0.02em;
+}
+.brand-school {
+  margin-left: 26px;
+  padding-left: 10px;
+  border-left: 2px solid #8b928e;
+  line-height: 22px;
+  font-size: 22px;
+  color: var(--gray);
+}
+.help {
+  position: absolute;
+  left: 1063px; top: 77px;
+  font-size: 16px; font-weight: 700;
+  color: #46514b;
+}
+
+/* ---------- 왼쪽 히어로 ---------- */
+.badge {
+  position: absolute;
+  left: 92px; top: 241px;
+  width: 294px; height: 44px;
+  border-radius: 22px;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 16px; font-weight: 700;
+  display: grid; place-items: center;
+}
+.hero h1 {
+  position: absolute;
+  left: 92px; top: 325px;
+  font-size: 58px; line-height: 68px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--green-dark);
+  white-space: nowrap;
+}
+.hero-desc {
+  position: absolute;
+  left: 92px; top: 497px;
+  font-size: 22px; line-height: 38px;
+  color: var(--gray);
+  white-space: nowrap;
+}
+.feature {
+  position: absolute;
+  left: 79px; top: 664px;
+  display: flex; align-items: center; gap: 18px;
+  white-space: nowrap;
+}
+.feature-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 34px; font-weight: 300; line-height: 1;
+  display: grid; place-items: center;
+}
+.feature strong { display: block; font-size: 18px; color: var(--green); font-weight: 700; }
+.feature span:not(.feature-icon) { display: block; margin-top: 4px; font-size: 16px; color: var(--gray); }
+
+/* ---------- 로그인 카드 ---------- */
+.card {
+  position: absolute;
+  left: 748px; top: 168px;
+  width: 520px; height: 755px;
+  padding: 63px 60px 0;
+  background: #fff;
+  border-radius: 36px;
+  overflow: hidden;
+}
+.eyebrow { height: 24px; line-height: 24px; font-size: 18px; color: var(--green); }
+.card h2 {
+  margin-top: 15px;
+  height: 48px; line-height: 48px;
+  font-size: 37px; font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--green-dark);
+}
+.card-sub { margin-top: 13px; height: 30px; line-height: 30px; font-size: 22px; color: var(--gray); }
+
+.label { display: block; margin-top: 47px; height: 24px; line-height: 24px; font-size: 18px; font-weight: 700; color: #1d2420; }
+.label-2 { margin-top: 34px; }
+
+.input {
+  display: block;
+  width: 100%; height: 70px;
+  margin-top: 17px;
+  padding: 0 26px;
+  border: 2px solid var(--border);
+  border-radius: 18px;
+  background: #fff;
+  font: inherit; font-size: 20px;
+  color: #2a2f2c;
+  outline: none;
+}
+.input:focus { border-color: var(--green); }
+.pw-wrap { position: relative; }
+.eye {
+  position: absolute; right: 24px; top: 0;
+  width: 70px; height: 70px;
+  display: grid; place-items: center;
+  color: #4a524d;
+}
+.eye svg { width: 40px; height: 40px; }
+
+/* 오류 상태 */
+body[data-state="error"] .input {
+  border-color: var(--red-line);
+  background: var(--red-bg);
+  color: var(--red);
+}
+.alert {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: 26px;
+  height: 74px; padding: 0 17px;
+  background: #fff0ee;
+  border: 1.5px solid #f2b5ae;
+  border-radius: 14px;
+}
+.alert-icon {
+  flex: none;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #dd6b60; color: #fff;
+  font-size: 15px; font-weight: 800;
+  display: grid; place-items: center;
+}
+.alert strong { display: block; font-size: 16px; color: var(--red); font-weight: 700; }
+.alert span:not(.alert-icon) { display: block; margin-top: 3px; font-size: 14px; color: #c0675f; }
+
+.btn {
+  display: block;
+  width: 100%; height: 68px;
+  margin-top: 44px;
+  border-radius: 16px;
+  background: var(--green);
+  color: #fff;
+  font-size: 22px; font-weight: 700;
+}
+body[data-state="error"] .btn { margin-top: 30px; }
+
+.links {
+  margin-top: 33px; height: 20px;
+  display: flex; justify-content: center; align-items: center; gap: 9px;
+  font-size: 17px; font-weight: 700; color: var(--green);
+}
+.links i { width: 2px; height: 18px; background: var(--green); }
+.signup {
+  margin-top: 32px;
+  padding-top: 19px;
+  border-top: 1.5px solid #e6e9e7;
+  font-size: 22px; color: var(--gray);
+  white-space: nowrap;
+}
+.signup a { font-weight: 800; color: var(--green-dark); }
+
+/* ---------- 완료(어두운) 화면 ---------- */
+.done {
+  position: relative;
+  width: 1393px; height: 1263px;
+  background: #fff;
+  overflow: hidden;
+  color: #fff;
+}
+.done-card {
+  position: absolute; left: 12px; top: 83px;
+  width: 1368px; height: 1064px;
+  background: #124437;
+  border-radius: 30px;
+}
+.done .brand { left: 71px; top: 62px; }
+.brand-light .brand-icon { background: #e3f0ea; }
+.brand-light .brand-icon svg { width: 28px; height: 28px; }
+.brand-light .brand-name { color: #fff; font-size: 30px; }
+.brand-light .brand-school { color: #d3e5dc; border-left-color: #d3e5dc; }
+
+.circle { position: absolute; border-radius: 50%; }
+.circle-tr { left: 912px; top: 0; width: 482px; height: 482px; background: rgba(40, 110, 90, .32); }
+.circle-bl { left: 0; top: 831px; width: 431px; height: 431px; background: rgba(7, 40, 29, .45); }
+
+.check-badge {
+  position: absolute; left: 129px; top: 337px;
+  width: 132px; height: 132px; border-radius: 50%;
+  background: #dfeee5;
+  display: grid; place-items: center;
+}
+.check-badge svg { width: 62px; height: 62px; }
+.done-title {
+  position: absolute; left: 117px; top: 503px;
+  font-size: 58px; line-height: 80px; font-weight: 800;
+  letter-spacing: -0.03em; white-space: nowrap;
+}
+.done-sub {
+  position: absolute; left: 117px; top: 601px;
+  font-size: 24px; line-height: 40px; color: #dcebe3;
+}
+.done-btn {
+  position: absolute; left: 99px;
+  width: 433px; height: 73px;
+  border-radius: 16px;
+  font-size: 21px; font-weight: 700;
+  display: grid; place-items: center;
+}
+.done-btn-white { top: 670px; background: #fff; color: var(--green); }
+.done-btn-ghost { top: 761px; background: #71807a; color: #fff; }
+.done-note {
+  position: absolute; left: 117px; top: 858px;
+  font-size: 18px; color: #a9c7ba;
+}
+
+/* =====================================================
+   완료(어두운) 화면: 브라우저 창에 꽉 차게, 스크롤 없이
+   ===================================================== */
+.done {
+  --u: min(1px, 0.111vh);           /* 세로 900px 기준 1배, 창이 작으면 비례 축소 */
+  position: fixed; inset: 0;
+  width: auto; height: auto;
+  overflow: hidden; background: #fff;
+}
+.done-card {
+  left: 12px; top: 12px; right: 12px; bottom: 12px;
+  width: auto; height: auto;
+  overflow: hidden;
+  border-radius: calc(30 * var(--u));
+}
+.done-card::before, .done-card::after { content: ""; position: absolute; border-radius: 50%; }
+.done-card::before { right: -14px; top: -83px; width: calc(482 * var(--u)); height: calc(482 * var(--u)); background: rgba(40, 110, 90, .32); }
+.done-card::after { left: -12px; bottom: -115px; width: calc(431 * var(--u)); height: calc(431 * var(--u)); background: rgba(7, 40, 29, .45); }
+.done .brand { left: calc(71 * var(--u)); top: calc(62 * var(--u)); }
+
+.done-body {
+  position: absolute; z-index: 1;
+  left: calc(12px + 87 * var(--u)); top: 50%;
+  transform: translateY(-46%);
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.check-badge, .done-check {
+  position: static;
+  width: calc(132 * var(--u)); height: calc(132 * var(--u));
+  margin-left: calc(30 * var(--u));
+}
+.check-badge svg, .done-check svg { width: 47%; height: 47%; }
+.done-title {
+  position: static; margin: calc(34 * var(--u)) 0 0 calc(18 * var(--u));
+  font-size: calc(58 * var(--u)); line-height: calc(80 * var(--u));
+}
+.done-sub {
+  position: static; margin: calc(4 * var(--u)) 0 0 calc(18 * var(--u));
+  font-size: calc(24 * var(--u)); line-height: calc(40 * var(--u));
+}
+.done-btn {
+  position: static;
+  width: calc(433 * var(--u)); height: calc(73 * var(--u));
+  font-size: calc(21 * var(--u));
+}
+.done-note {
+  position: static; margin: calc(24 * var(--u)) 0 0 calc(18 * var(--u));
+  font-size: calc(18 * var(--u));
+}
+
+body[data-state="done"] { display: block; padding: 0; min-width: 0; overflow: hidden; }
+.done-btn-white { margin-top: calc(30 * var(--u)); }
+.done-btn-ghost { margin-top: calc(18 * var(--u)); }

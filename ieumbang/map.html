@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이음방 지도</title>
+  <link rel="stylesheet" href="map.css">
+</head>
+<!--
+  화면 상태: data-view = find (방 찾기, 기본) | map (동네 지도)
+  미리보기: map.html?view=map
+-->
+<body data-view="find">
+<div class="page">
+
+  <!-- ===== 공통 상단 네비게이션 ===== -->
+  <header class="nav">
+    <a class="logo" href="#">이음방</a>
+    <nav>
+      <a href="#" data-go="home">홈</a>
+      <a href="#" data-go="find" class="tab-find">방 찾기</a>
+      <a href="#" data-go="sell">방 내놓기</a>
+      <a href="#" data-go="share">물려주기</a>
+      <a href="#" data-go="map" class="tab-map">동네 지도</a>
+      <a href="#" data-go="review">후기</a>
+    </nav>
+    <div class="user"><span>ewha_in</span> 님 <a class="logout" href="login.html">로그아웃</a></div>
+  </header>
+
+  <!-- =====================================================
+       VIEW 1 : 방 찾기
+       ===================================================== -->
+  <main class="view view-find">
+    <section class="panel panel-find">
+      <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input id="q" placeholder="대현동, 이대역, 세탁기 ..."></div>
+
+      <div class="chips" id="chips">
+        <button class="chip on" data-f="rent">월세 40~60만</button>
+        <button class="chip" data-f="dep" data-base="보증금">보증금 <small>▾</small></button>
+        <button class="chip" data-f="type" data-base="방 종류">방 종류 <small>▾</small></button>
+        <button class="chip on" data-f="walk">정문 도보 15분 이내</button>
+        <button class="chip" data-f="fac" data-base="시설">시설 <small>▾</small></button>
+        <button class="chip on" data-f="share">물려주기 포함</button>
+      </div>
+
+      <div class="list-head"><h2>살던 학생이 소개한 방 <b id="count">24</b></h2><button id="sort-btn">최신순 <small>▾</small></button></div>
+
+      <ul class="rooms">
+        <li class="room is-selected" data-id="1" data-order="1" data-rent="50" data-dep="500" data-walk="7" data-type="원룸" data-fac="세탁기 냉장고 에어컨" data-share="3" data-popup="정문까지 도보 7분 · 이대역 도보 4분">
+          <div class="thumb t1"></div>
+          <div class="info">
+            <div class="tags"><span class="tag g">살던 학생 소개</span><span class="tag o">물려주기 3</span></div>
+            <h3>채광 좋은 남향 원룸</h3>
+            <p>대현동 · 6.5평 · 2층 · 정문 도보 7분</p>
+            <p>세탁기·냉장고·에어컨 · 12월 입주</p>
+            <strong>월세 50 / 보증금 500</strong>
+          </div>
+        </li>
+        <li class="room" data-id="2" data-order="2" data-rent="55" data-dep="500" data-walk="12" data-type="원룸" data-fac="분리형주방 드라이룸" data-share="0" data-popup="정문까지 도보 12분">
+          <div class="thumb t2"></div>
+          <div class="info">
+            <div class="tags"><span class="tag g">살던 학생 소개</span></div>
+            <h3>분리형 원룸, 방음 좋아요</h3>
+            <p>신촌동 · 7평 · 3층 · 정문 도보 12분</p>
+            <p>분리형 주방 · 드라이룸 · 12월 입주</p>
+            <strong>월세 55 / 보증금 500</strong>
+          </div>
+        </li>
+        <li class="room" data-id="3" data-order="3" data-rent="62" data-dep="1000" data-walk="15" data-type="오피스텔" data-fac="풀옵션 보안" data-share="5" data-popup="정문까지 도보 15분">
+          <div class="thumb t3"></div>
+          <div class="info">
+            <div class="tags"><span class="tag g">살던 학생 소개</span><span class="tag o">물려주기 5</span></div>
+            <h3>풀옵션 신축 오피스텔</h3>
+            <p>아현동 · 8평 · 7층 · 정문 도보 15분</p>
+            <p>풀옵션 · 보안 우수 · 1월 입주</p>
+            <strong>월세 62 / 보증금 1000</strong>
+          </div>
+        </li>
+        <li class="room" data-id="4" data-order="4" data-rent="48" data-dep="500" data-walk="10" data-type="복층" data-fac="베란다 세탁기" data-share="0" data-popup="정문까지 도보 10분">
+          <div class="thumb t4"></div>
+          <div class="info">
+            <div class="tags"><span class="tag g">살던 학생 소개</span></div>
+            <h3>베란다 있는 복층 원룸</h3>
+            <p>북아현동 · 9평 · 복층 · 정문 도보 10분</p>
+            <p>베란다 · 세탁기 · 2월 입주</p>
+            <strong>월세 48 / 보증금 500</strong>
+          </div>
+        </li>
+      </ul>
+      <p class="empty" id="empty" hidden>조건에 맞는 방이 없어요.<br>필터를 바꿔 보세요.</p>
+    </section>
+
+    <section class="map map-find">
+      <div class="map-inner"><!-- 내부 좌표 = 페이지 좌표 (map 원점 646,91 보정) -->
+        <i class="road h" style="left:646px;top:296px;width:608px;height:14px"></i>
+        <i class="road h" style="left:646px;top:438px;width:608px;height:13px"></i>
+        <i class="road h" style="left:646px;top:551px;width:608px;height:15px"></i>
+        <i class="road h" style="left:646px;top:726px;width:387px;height:14px"></i>
+        <i class="road v" style="left:803px;top:91px;width:16px;height:774px"></i>
+        <i class="road v" style="left:929px;top:91px;width:12px;height:774px"></i>
+        <i class="road v" style="left:1033px;top:91px;width:19px;height:774px"></i>
+        <i class="park" style="left:1037px;top:646px;width:230px;height:150px"></i>
+
+        <div class="school" style="left:680px;top:133px;width:213px;height:137px">이화여자대학교</div>
+
+        <span class="road-label" style="left:990px;top:323px">신촌로</span>
+        <span class="road-label" style="left:696px;top:560px">이화여대길</span>
+
+        <svg class="route" width="1313" height="964" style="left:0;top:0"><path id="find-route" d="M891 302 C 897 380, 915 430, 917 512"/></svg>
+        <i class="gate" style="left:884px;top:295px"></i><span class="gate-label" style="left:906px;top:292px">정문</span>
+
+        <span class="price" style="left:740px;top:447px">52</span>
+        <span class="price" data-room="2" style="left:1097px;top:383px">55</span>
+        <span class="price" data-room="3" style="left:764px;top:593px">62</span>
+        <span class="price" data-room="4" style="left:1114px;top:593px">48</span>
+        <span class="price big" data-room="1" style="left:920px;top:485px">50 / 500</span>
+        <span class="station" style="left:1004px;top:478px">2</span><span class="station-label" style="left:1022px;top:470px">이대역</span>
+      </div>
+
+      <button class="research" id="research">이 지역에서 다시 검색</button>
+      <div class="zoom"><button>+</button><button>−</button></div>
+      <div class="popup" id="find-popup"><b id="pop-title">채광 좋은 남향 원룸</b><span id="pop-sub">정문까지 도보 7분 · 이대역 도보 4분</span></div>
+    </section>
+  </main>
+
+  <!-- =====================================================
+       VIEW 2 : 동네 지도
+       ===================================================== -->
+  <main class="view view-map">
+    <section class="panel panel-map">
+      <h1>동네 편의 지도</h1>
+      <p class="sub">채광 좋은 남향 원룸(대현동) 주변을 보고 있어요</p>
+      <div class="seg"><button class="on">도보 5분</button><button>도보 10분</button></div>
+
+      <ul class="cats">
+        <li class="on" data-cat="편"><i style="background:#2d5b47">편</i><span>편의점</span><em>3곳</em></li>
+        <li class="on" data-cat="세"><i style="background:#4a6ea9">세</i><span>세탁소·코인세탁</span><em>2곳</em></li>
+        <li class="on" data-cat="마"><i style="background:#b5532a">마</i><span>마트·시장</span><em>1곳</em></li>
+        <li data-cat="약"><i style="background:#7a4a8c">약</i><span>약국·병원</span><em>4곳</em></li>
+        <li data-cat="버"><i style="background:#5b6470">버</i><span>버스·지하철</span><em>5곳</em></li>
+        <li data-cat="카"><i style="background:#a67c28">카</i><span>카페·스터디</span><em>8곳</em></li>
+        <li class="on" data-cat="안"><i style="background:#1f3a30">안</i><span>안심 귀갓길·CCTV</span><em>표시 중</em></li>
+      </ul>
+
+      <div class="near">
+        <h3>가까운 곳</h3>
+        <dl><dt>편의점 24시 (예시)</dt><dd>도보 2분</dd></dl>
+        <dl><dt>코인세탁소 (예시)</dt><dd>도보 3분</dd></dl>
+        <dl><dt>동네 마트 (예시)</dt><dd>도보 4분</dd></dl>
+        <dl><dt>이대역 2호선</dt><dd>도보 4분</dd></dl>
+      </div>
+
+      <div class="night">
+        <b>밤길 한마디</b>
+        <p>“정문에서 집까지 큰길로 이어져 늦게 와도 조명이 밝아요.”</p>
+        <span>— ewha_in</span>
+      </div>
+    </section>
+
+    <section class="map map-neighbor">
+      <div class="map-inner"><!-- 내부 좌표 = 페이지 좌표 (map 원점 421,89 보정) -->
+        <i class="road h" style="left:421px;top:235px;width:802px;height:22px"></i>
+        <i class="road h" style="left:421px;top:439px;width:802px;height:12px"></i>
+        <i class="road h" style="left:421px;top:573px;width:802px;height:22px"></i>
+        <i class="road h" style="left:421px;top:768px;width:802px;height:12px"></i>
+        <i class="road v" style="left:637px;top:89px;width:18px;height:775px"></i>
+        <i class="road v" style="left:801px;top:89px;width:14px;height:775px"></i>
+        <i class="road v" style="left:933px;top:89px;width:16px;height:775px"></i>
+        <i class="park" style="left:955px;top:694px;width:300px;height:200px"></i>
+
+        <div class="school" style="left:458px;top:60px;width:235px;height:154px;padding-top:46px">이화여자대학교</div>
+
+        <i class="ring r10" style="left:585px;top:251px;width:468px;height:468px"></i>
+        <i class="ring r5" style="left:701px;top:367px;width:236px;height:236px"></i>
+        <i class="ring r0" style="left:789px;top:455px;width:60px;height:60px"></i>
+        <span class="ring-label" style="left:793px;top:251px">도보 10분</span>
+        <span class="ring-label" style="left:797px;top:370px">도보 5분</span>
+
+        <svg class="route thick" data-cat="안" width="1313" height="964" style="left:0;top:0"><path d="M692 247 C 700 330, 760 420, 805 470"/><path class="dots" d="M692 247 C 700 330, 760 420, 805 470"/></svg>
+        <i class="gate" data-cat="안" style="left:685px;top:240px"></i><span class="gate-label" data-cat="안" style="left:709px;top:237px">정문</span>
+
+        <svg class="me" style="left:802px;top:452px" width="34" height="44" viewBox="0 0 34 44"><path d="M17 2C9 2 3 8 3 16c0 10 14 25 14 25s14-15 14-25C31 8 25 2 17 2z" fill="#1a2f27"/><circle cx="17" cy="16" r="5.5" fill="#fff"/></svg>
+        <span class="me-label" style="left:837px;top:524px">내가 보는 방</span>
+
+        <b class="pin" data-cat="안" style="left:768px;top:303px;background:#1f3a30">안</b>
+        <b class="pin" data-cat="안" style="left:706px;top:373px;background:#1f3a30">안</b>
+        <b class="pin" data-cat="세" style="left:771px;top:411px;background:#4a6ea9">세</b>
+        <b class="pin" data-cat="편" style="left:877px;top:418px;background:#2d5b47">편</b>
+        <b class="pin" data-cat="약" style="left:679px;top:501px;background:#7a4a8c">약</b>
+        <b class="pin" data-cat="편" style="left:737px;top:534px;background:#2d5b47">편</b>
+        <b class="pin" data-cat="편" style="left:913px;top:548px;background:#2d5b47">편</b>
+        <b class="pin" data-cat="마" style="left:859px;top:607px;background:#b5532a">마</b>
+        <b class="pin" data-cat="카" style="left:633px;top:661px;background:#a67c28">카</b>
+        <b class="pin" data-cat="버" style="left:1021px;top:325px;background:#5b6470">버</b>
+        <b class="pin" data-cat="세" style="left:987px;top:452px;background:#4a6ea9">세</b>
+      </div>
+
+      <div class="zoom"><button>+</button><button>−</button></div>
+      <div class="popup popup-wide"><span class="dots">••••</span><span id="pop-text">정문에서 방까지 안심 귀갓길 (도보 7분)</span></div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="map.js"></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이음방 회원가입</title>
+  <link rel="stylesheet" href="signup.css">
+</head>
+<!--
+  화면 상태: data-view = email | email-error | verified | account | done
+  미리보기: signup.html?view=email-error 처럼 사용
+-->
+<body data-view="email">
+
+  <!-- 공통 헤더 SVG 아이콘 재사용을 위해 <symbol> 정의 -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <!-- ===================== 1단계: 이메일 인증 / 2단계: 계정 정보 ===================== -->
+  <div class="frame" id="frame-steps">
+    <header class="brand">
+      <span class="brand-icon"><svg><use href="#i-home"/></svg></span>
+      <span class="brand-name">이음방</span>
+      <span class="brand-school">이화여자대학교</span>
+    </header>
+
+    <!-- 타이틀 (뷰마다 다름) -->
+    <h1 class="page-title v-email">이화인임을 확인해 주세요</h1>
+    <p class="page-sub v-email">학교 이메일 인증 후 이음방을 이용할 수 있어요.</p>
+
+    <h1 class="page-title v-email-error">인증번호를 다시 확인해 주세요</h1>
+    <p class="page-sub v-email-error">입력한 번호가 일치하지 않아요. 이메일을 확인해 주세요.</p>
+
+    <h1 class="page-title v-verified">이화인 인증이 완료되었어요</h1>
+    <p class="page-sub v-verified">이제 이화인을 위한 방을 찾아볼 수 있어요.</p>
+
+    <h1 class="page-title v-account">나만의 계정을 만들어 주세요</h1>
+    <p class="page-sub v-account">이음방에서 사용할 정보를 입력해 주세요.</p>
+
+    <!-- 스텝 인디케이터 -->
+    <ol class="stepper v-email v-email-error v-account">
+      <li class="step is-active"><b>1</b><span>이메일 인증</span></li>
+      <li class="bar"></li>
+      <li class="step"><b>2</b><span>계정 정보</span></li>
+      <li class="bar bar-off"></li>
+      <li class="step"><b>3</b><span>가입 완료</span></li>
+    </ol>
+
+    <!-- ---- 1단계: 이메일 인증 카드 (기본 / 오류) ---- -->
+    <section class="card card-email v-email v-email-error">
+      <h2 class="v-email">학교 이메일 인증</h2>
+      <p class="card-sub v-email">이화대학교 이메일로 인증번호를 보내드려요.</p>
+      <h2 class="v-email-error">인증번호 입력</h2>
+      <p class="card-sub v-email-error">12345678@ewha.ac.kr 로 발송된 번호를 입력해 주세요.</p>
+
+      <div class="v-email">
+        <label class="label" for="email">학교 이메일 <em>*</em></label>
+        <div class="row">
+          <div class="input-box">
+            <span class="eg">예:</span>
+            <input id="email" type="email" placeholder="12345678@ewha.ac.kr">
+          </div>
+          <button class="btn-sub" type="button" id="send-code">인증번호 받기</button>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <label class="label" for="code">인증번호</label>
+        <div class="row">
+          <div class="input-box" id="code-box">
+            <input id="code" type="text" inputmode="numeric" maxlength="6" placeholder="6자리 인증번호를 입력해 주세요">
+            <span class="timer" id="timer">02:48</span>
+          </div>
+          <button class="btn-main" type="button" id="verify">
+            <span class="v-email">인증하기</span><span class="v-email-error">다시 인증하기</span>
+          </button>
+        </div>
+        <p class="field-error v-email-error"><i>!</i>인증번호가 올바르지 않아요. 다시 입력해 주세요.</p>
+        <p class="resend v-email-error">인증번호를 받지 못하셨나요? <a href="#" id="resend">인증번호 재전송</a></p>
+      </div>
+    </section>
+
+    <!-- ---- 1단계 완료 카드 ---- -->
+    <section class="card card-verified v-verified">
+      <span class="check-badge"><svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 33l14 14 25-28"/></svg></span>
+      <h2>학교 이메일 인증 완료</h2>
+      <div class="email-pill"><i></i><span id="verified-email">12345678@ewha.ac.kr</span></div>
+      <button class="btn-wide" type="button" id="to-account">계정 정보 입력하기</button>
+    </section>
+
+    <!-- ---- 2단계: 계정 정보 카드 ---- -->
+    <section class="card card-account v-account">
+      <form id="account-form" novalidate>
+        <div class="verified-bar"><span id="account-email">12345678@ewha.ac.kr</span><b>인증 완료</b></div>
+
+        <div class="grid">
+          <div class="field">
+            <label class="label" for="uid">아이디 <em>*</em></label>
+            <input class="input" id="uid" placeholder="영문, 숫자 조합 4~16자">
+          </div>
+          <div class="field">
+            <label class="label" for="nick">닉네임 <em>*</em></label>
+            <input class="input" id="nick" placeholder="마켓에서 사용할 이름">
+          </div>
+          <div class="field">
+            <label class="label" for="tel">전화번호 (선택)</label>
+            <input class="input" id="tel" placeholder="010-1234-5678">
+          </div>
+          <div class="field"></div>
+          <div class="field">
+            <label class="label" for="pw">비밀번호 <em>*</em></label>
+            <input class="input" id="pw" type="password" placeholder="8자 이상 입력해 주세요">
+          </div>
+          <div class="field">
+            <label class="label" for="pw2">비밀번호 확인 <em>*</em></label>
+            <input class="input" id="pw2" type="password" placeholder="비밀번호를 한 번 더 입력">
+          </div>
+        </div>
+
+        <p class="label purpose-title">이음방에서 무엇을 하고 싶나요?</p>
+        <div class="purpose">
+          <label class="opt"><input type="radio" name="purpose" value="buy" checked><span><b>방을 구해요</b><small>자취방과 살림을 찾아요</small></span></label>
+          <label class="opt"><input type="radio" name="purpose" value="sell"><span><b>방을 내놓아요</b><small>살던 방을 소개해요</small></span></label>
+          <label class="opt"><input type="radio" name="purpose" value="both"><span><b>둘 다 해요</b><small>필요할 때 바꿀 수 있어요</small></span></label>
+        </div>
+
+        <div class="foot">
+          <label class="agree"><input type="checkbox" id="agree" checked><i></i><span>[필수] 이용약관 및 개인정보 수집·이용에 동의해요.</span></label>
+          <button class="btn-join" type="submit">가입하기</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <!-- ===================== 3단계: 가입 완료 ===================== -->
+  <div class="done" id="frame-done">
+    <div class="done-card">
+      <header class="brand brand-light">
+        <span class="brand-icon"><svg><use href="#i-home"/></svg></span>
+        <span class="brand-name">이음방</span>
+        <span class="brand-school">이화여자대학교</span>
+      </header>
+    </div>
+    <div class="done-body">
+    <span class="done-check">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#206B57" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 33l14 14 27-30"/></svg>
+    </span>
+    <h2 class="done-title">회원가입이 완료되었어요!</h2>
+    <p class="done-sub">이화인을 위한 가장 가까운 방, 이음방에 오신 걸 환영해요.</p>
+    <a class="done-btn" href="map.html">이음방 시작하기</a>
+    <p class="done-note">살아본 사람의 정보로 더 안심되는 자취</p>
+    </div>
+  </div>
+
+  <script>
+    // 데모용 처리: 실제 서비스에서는 서버 API로 교체하세요.
+    (function () {
+      var DEV_BYPASS = true;   // ← 백엔드 연결 후 false 로 변경
+      var body = document.body;
+      var go =function (v) { body.setAttribute('data-view', v); };
+      var q = new URLSearchParams(location.search).get('view');
+      if (q) go(q);
+
+      // 인증번호 타이머 (3분)
+      var remain = 168, timerEl = document.getElementById('timer');
+      function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+      timerEl.textContent = fmt(remain);
+      setInterval(function () { if (remain > 0) timerEl.textContent = fmt(--remain); }, 1000);
+
+      document.getElementById('send-code').addEventListener('click', function () {
+        remain = 180; timerEl.textContent = fmt(remain);   // TODO: 인증번호 발송 API
+      });
+      document.getElementById('resend').addEventListener('click', function (e) {
+        e.preventDefault(); remain = 180; timerEl.textContent = fmt(remain);
+      });
+
+      document.getElementById('verify').addEventListener('click', function () {
+        var code = document.getElementById('code').value;
+        var email = document.getElementById('email').value;
+        if (email) {
+          document.getElementById('verified-email').textContent = email;
+          document.getElementById('account-email').textContent = email;
+        }
+        // 백엔드 연결 전에는 DEV_BYPASS = true → 아무 값이나 입력해도 통과
+        // 백엔드 연결 후: DEV_BYPASS = false 로 바꾸고 아래 TODO 에 인증 API 결과를 연결하세요.
+        if (DEV_BYPASS) { go('verified'); return; }
+        // TODO: 서버 검증 결과로 분기 (임시: 000000 이면 성공)
+        go(code === '000000' ? 'verified' : 'email-error');
+      });
+
+      document.getElementById('to-account').addEventListener('click', function () { go('account'); });
+
+      document.getElementById('account-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!document.getElementById('agree').checked) return;
+        go('done');
+      });
+    })();
+  </script>
+</body>
+</html>
