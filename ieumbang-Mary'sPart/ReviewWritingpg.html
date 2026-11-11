@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Review</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="write-page">
+
+        <div class="write-path">
+            <a href="#">거주 후기</a>
+            <span>›</span>
+            <span>후기 쓰기</span>
+        </div>
+
+
+        <!-- Main Review Box -->
+        <section class="write-container">
+
+            <div class="write-card">
+
+                <h2 class="write-title">후기 쓰기</h2>
+
+
+                <div class="write-top">
+
+                    <!-- Photo Preview -->
+                    <div class="write-photo-list">
+
+                        <div class="write-image-card">
+                            <img src="image/reviewimage1.png" alt="Room photo">
+
+                            <button type="button" class="image-delete">
+                                ×
+                            </button>
+                        </div>
+
+                        <div class="write-image-card">
+                            <img src="image/reviewimage2.jpg" alt="Room photo">
+
+                            <button type="button" class="image-delete">
+                                ×
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Rating and Upload Buttons -->
+                    <div class="write-side">
+
+                        <!-- Rating -->
+                        <div class="write-rating">
+
+                            <input type="radio" name="rating" id="star5" value="5">
+                            <label for="star5">★</label>
+
+                            <input type="radio" name="rating" id="star4" value="4" checked>
+                            <label for="star4">★</label>
+
+                            <input type="radio" name="rating" id="star3" value="3">
+                            <label for="star3">★</label>
+
+                            <input type="radio" name="rating" id="star2" value="2">
+                            <label for="star2">★</label>
+
+                            <input type="radio" name="rating" id="star1" value="1">
+                            <label for="star1">★</label>
+
+                        </div>
+
+
+                        <!-- Photo and Video Buttons -->
+                        <div class="write-upload">
+
+                            <label class="upload-btn photo-btn">
+                                <img src="image/Cameraicon.png" alt="Photo icon">
+                                <span>사진</span>
+                                <input type="file" accept="image/*" hidden>
+                            </label>
+
+                            <label class="upload-btn video-btn">
+                                <img src="image/VIDicon.png" alt="Video icon">
+                                <span>영상</span>
+                                <input type="file" accept="video/*" hidden>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Title -->
+                <div class="write-field">
+
+                    <label for="review-title">제목:</label>
+
+                    <input
+                        type="text"
+                        id="review-title"
+                        placeholder="후기 제목을 입력해주세요."
+                    >
+
+                </div>
+
+
+                <!-- Location -->
+                <div class="write-field">
+
+                    <label for="review-location">방 위치:</label>
+
+                    <input
+                        type="text"
+                        id="review-location"
+                        placeholder="거주했던 위치를 입력해주세요."
+                    >
+
+                </div>
+
+
+                <!-- Review Editor -->
+                <div class="write-editor">
+
+                    <!-- Advantages and Disadvantages -->
+                    <div class="write-tabs">
+
+                        <button type="button" class="write-tab good-tab">
+                            장점
+                        </button>
+
+                        <button type="button" class="write-tab bad-tab">
+                            단점
+                        </button>
+
+                    </div>
+
+
+                    <!-- Writing Area -->
+                    <textarea
+                        class="review-content"
+                        placeholder="장점과 단점을 자유롭게 작성해주세요."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Bottom Buttons -->
+                <div class="write-bottom">
+
+                    <button type="button" class="write-back">
+                        ‹ 리뷰 목록으로 돌아가기
+                    </button>
+
+                    <button type="button" class="write-submit">
+                        리뷰 등록
+                    </button>
+
+                    <div class="write-management">
+
+                        <button type="button" class="write-edit">
+                            수정
+                        </button>
+
+                        <button type="button" class="write-delete">
+                            삭제
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
