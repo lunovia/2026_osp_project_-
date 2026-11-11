@@ -59,8 +59,8 @@ body[data-view="email"] .code-block .v-email { display: block; }
   transform-origin: 0 0;   /* 창 크기에 맞춰 JS 가 scale/위치를 조정 */
   width: 1370px; height: 1065px;
   background: var(--bg);
-  border: 1px solid #e3e7e4;
-  border-radius: 40px;
+  border: 0;
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -93,7 +93,7 @@ body[data-view="email"] .code-block .v-email { display: block; }
 
 /* ---------- 스텝 ---------- */
 .stepper {
-  position: absolute; left: 350px; top: 307px;
+  position: absolute; left: calc(50% - 335px); top: 307px;
   align-items: center; list-style: none;
 }
 .step { display: flex; align-items: center; gap: 10px; font-size: 18px; color: #7b837f; }
@@ -124,7 +124,7 @@ body[data-view="email"] .code-block .v-email { display: block; }
 .label em { color: #e2475d; font-style: normal; margin-left: 2px; }
 
 /* ---------- 1단계 카드 ---------- */
-.card-email { left: 356px; top: 385px; width: 658px; height: 634px; padding: 40px 50px 0; }
+.card-email { left: calc(50% - 329px); top: 385px; width: 658px; height: 634px; padding: 40px 50px 0; }
 .card-email .label { margin-top: 48px; }
 .card-email .code-block .label { margin-top: 40px; }
 .row { display: flex; gap: 12px; margin-top: 19px; }
@@ -168,7 +168,7 @@ body[data-view="email-error"] .card-email .code-block .label { margin-top: 44px;
 
 /* ---------- 인증 완료 카드 ---------- */
 .card-verified {
-  left: 89px; top: 345px; width: 1191px; height: 608px;
+  left: calc(50% - 596px); top: 345px; width: 1191px; height: 608px;
   flex-direction: column; align-items: center;
   padding-top: 94px;
 }
@@ -201,8 +201,8 @@ body[data-view="email-error"] .card-email .code-block .label { margin-top: 44px;
 body[data-view="account"] .brand { top: 36px; }
 body[data-view="account"] .page-title { top: 104px; }
 body[data-view="account"] .page-sub { top: 191px; }
-body[data-view="account"] .stepper { top: 266px; left: 456px; }
-.card-account { left: 56px; top: 320px; width: 1260px; height: 708px; padding: 40px 66px 0 80px; }
+body[data-view="account"] .stepper { top: 266px; left: calc(50% - 229px); }
+.card-account { left: calc(50% - 629px); top: 320px; width: 1260px; height: 708px; padding: 40px 66px 0 80px; }
 .verified-bar {
   height: 52px; border-radius: 26px; background: #e8f1ec;
   display: flex; justify-content: space-between; align-items: center;
@@ -341,3 +341,7 @@ body[data-view="account"] .stepper { top: 266px; left: 456px; }
 
 body[data-view="done"] { display: block; padding: 0; min-width: 0; overflow: hidden; }
 .done-btn { margin: calc(56 * var(--u)) 0 0 calc(18 * var(--u)); }
+
+/* ---------- 창 전체 채우기 ---------- */
+/* .frame 은 창 전체(배경), .stage 는 1370x1065 디자인 영역(세로 가운데 정렬). JS 가 scale 과 크기를 계산 */
+.stage { position: absolute; left: 0; right: 0; top: 0; height: 1065px; }

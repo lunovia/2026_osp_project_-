@@ -41,8 +41,8 @@ body:not([data-state="done"]) #view-done { display: none; }
   width: 1370px;
   height: 1065px;
   background: var(--bg);
-  border: 1px solid #e3e7e4;
-  border-radius: 40px;
+  border: 0;
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -77,7 +77,7 @@ body:not([data-state="done"]) #view-done { display: none; }
 }
 .help {
   position: absolute;
-  left: 1063px; top: 77px;
+  right: 147px; top: 77px;
   font-size: 16px; font-weight: 700;
   color: #46514b;
 }
@@ -128,7 +128,7 @@ body:not([data-state="done"]) #view-done { display: none; }
 /* ---------- 로그인 카드 ---------- */
 .card {
   position: absolute;
-  left: 748px; top: 168px;
+  right: 102px; top: 168px;
   width: 520px; height: 755px;
   padding: 63px 60px 0;
   background: #fff;
@@ -327,3 +327,7 @@ body[data-state="error"] .btn { margin-top: 30px; }
 body[data-state="done"] { display: block; padding: 0; min-width: 0; overflow: hidden; }
 .done-btn-white { margin-top: calc(30 * var(--u)); }
 .done-btn-ghost { margin-top: calc(18 * var(--u)); }
+
+/* ---------- 창 전체 채우기 ---------- */
+/* .frame 은 창 전체(배경), .stage 는 1370x1065 디자인 영역(세로 가운데 정렬). JS 가 scale 과 크기를 계산 */
+.stage { position: absolute; left: 0; right: 0; top: 0; height: 1065px; }

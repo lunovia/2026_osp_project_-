@@ -14,6 +14,7 @@
 
   <!-- ===== 로그인 화면 (기본 / 오류) ===== -->
   <div class="frame" id="view-login">
+  <div class="stage">
 
     <header class="brand">
       <span class="brand-icon">
@@ -75,6 +76,7 @@
       <p class="links s-default"><a href="#">아이디 찾기</a><i></i><a href="#">비밀번호 재설정</a></p>
       <p class="signup s-default">아직 이음방 회원이 아니신가요? <a href="signup.html">회원가입</a></p>
     </section>
+  </div><!-- /stage -->
   </div>
 
   <!-- ===== 로그인 완료 화면 ===== -->
@@ -136,16 +138,17 @@
     })();
   </script>
   <script>
-    // 창 크기에 맞춰 화면(1370x1065 디자인)을 비율 유지로 확대/축소하고 가운데 정렬 (스크롤 없음)
+    // 창 전체를 배경으로 채우고, 1370x1065 디자인 영역은 비율 유지로 맞춰 가운데 정렬 (스크롤 없음)
     (function () {
-      var W = 1370, H = 1065, GAP = 24, MAX = 1.5;
+      var W = 1370, H = 1065, MAX = 1.5;
       function fit() {
         var fr = document.querySelector('.frame');
         if (!fr || getComputedStyle(fr).display === 'none') return;
-        var s = Math.min((innerWidth - GAP) / W, (innerHeight - GAP) / H, MAX);
+        var s = Math.min(innerHeight / H, innerWidth / W, MAX);
+        fr.style.width = innerWidth / s + 'px';
+        fr.style.height = innerHeight / s + 'px';
         fr.style.transform = 'scale(' + s + ')';
-        fr.style.left = (innerWidth - W * s) / 2 + 'px';
-        fr.style.top = (innerHeight - H * s) / 2 + 'px';
+        fr.querySelector('.stage').style.top = Math.max(0, (innerHeight / s - H) / 2) + 'px';
       }
       addEventListener('resize', fit);
       new MutationObserver(fit).observe(document.body, { attributes: true });
