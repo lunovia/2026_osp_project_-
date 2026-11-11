@@ -21,10 +21,10 @@ body {
   font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
   color: var(--text);
   background: #fff;
-  display: flex;
-  justify-content: center;
-  padding: 24px;
-  min-width: 1420px;
+  display: block;
+  padding: 0;
+  min-width: 0;
+  overflow: hidden;
 }
 
 /* ---------- 상태 전환 ---------- */
@@ -35,7 +35,9 @@ body:not([data-state="done"]) #view-done { display: none; }
 
 /* ---------- 프레임 ---------- */
 .frame {
-  position: relative;
+  position: fixed;
+  left: 0; top: 0;
+  transform-origin: 0 0;   /* 창 크기에 맞춰 JS 가 scale/위치를 조정 */
   width: 1370px;
   height: 1065px;
   background: var(--bg);

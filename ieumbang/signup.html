@@ -198,5 +198,22 @@
       });
     })();
   </script>
+  <script>
+    // 창 크기에 맞춰 화면(1370x1065 디자인)을 비율 유지로 확대/축소하고 가운데 정렬 (스크롤 없음)
+    (function () {
+      var W = 1370, H = 1065, GAP = 24, MAX = 1.5;
+      function fit() {
+        var fr = document.querySelector('.frame');
+        if (!fr || getComputedStyle(fr).display === 'none') return;
+        var s = Math.min((innerWidth - GAP) / W, (innerHeight - GAP) / H, MAX);
+        fr.style.transform = 'scale(' + s + ')';
+        fr.style.left = (innerWidth - W * s) / 2 + 'px';
+        fr.style.top = (innerHeight - H * s) / 2 + 'px';
+      }
+      addEventListener('resize', fit);
+      new MutationObserver(fit).observe(document.body, { attributes: true });
+      fit();
+    })();
+  </script>
 </body>
 </html>
