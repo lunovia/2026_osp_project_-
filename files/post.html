@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이음방 · 방 내놓기</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+
+
+
+<body>
+<header class="hd">
+    <a class="logo" href="index.html">
+    <svg viewBox="0 0 30 30">
+        <rect width="30" height="30" rx="8" fill="#205e4b"/>
+        <path d="M8 14l7-6 7 6v8H8z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>
+    </svg>이음방</a>
+
+    <nav class="nav">
+        <a href="index.html">홈</a>
+        <a href="find.html">방 찾기</a>
+        <a href="post.html" class=on>방 내놓기</a>
+        <a href="find.html">물려주기</a>
+        <a href="find.html">동네 지도</a>
+        <a href="detail.html">후기</a>
+    </nav><div class="user">
+        
+<span class="un"><b>ewha_in</b> 님</span>
+<button class="btn">로그아웃</button></div>
+</header>
+
+
+<main class="wrap">
+<h1 class="ttl">방 내놓기</h1>
+<p class="sub">직접 살아본 경험이 다음에 이사 올 학생에게 가장 큰 도움이 돼요.</p>
+<div class="pst">
+<aside class="sum">
+<div class="ph" id="prev" style="--bg:#e8e0d3;--bl:#9db8ae"><i></i><b></b></div>
+<div class="tags"><span class="tg">살던 학생 소개</span><span class="tg pe">물려주기</span></div>
+
+<h3>채광 좋은 남향 원룸</h3>
+<div class="lo">서울 서대문구 대현동 · 정문 도보 7분</div>
+<span class="pr">월세 50 / 보증금 500</span>
+<div class="kv"><span>거주 기간</span>
+<b>1년 6개월</b></div>
+<div class="kv"><span>크기 · 층</span><b>6.5평 · 3층/5층</b>
+</div><div class="kv"><span>전 세입자</span><b>ewha_kimbap</b></div>
+<div class="note">솔직한 후기가 쌓일수록 방을 구하는 학생들이 더 안심하고 고를 수 있어요.</div>
+
+</aside>
+<section class="panel">
+<div class="sh">전체 만족도</div>
+
+<div class="big gr">
+    <div class="stars" data-v="4" data-dec="1">
+</div>
+
+<b></b></div>
+
+<div class="sh">항목별 평가</div>
+<div class="rg">
+<label>채광<input type="range" min="0" max="5" step="0.1" value="4.8"><b></b></label>
+<label>수압<input type="range" min="0" max="5" step="0.1" value="4.0"><b></b></label>
+<label>방음<input type="range" min="0" max="5" step="0.1" value="3.5"><b></b></label>
+<label>보안<input type="range" min="0" max="5" step="0.1" value="4.2"><b></b></label>
+</div>
+
+<div class="sh">전 세입자 한마디</div>
+<div class="qa">
+    <textarea id="memo" maxlength="300" data-c>
+    오후 2시 이후에 햇빛이 가장 잘 들어와요. 밤에는 골목이 조용하지만 주말엔 1층 가게가 조금 시끄러워요.
+</textarea><div class="cnt">0 / 300</div></div>
+
+<div class="sh">이 방은 이런 학생에게 추천해요<small>복수 선택</small></div>
+<div class="chips rec">
+    <button class="chip on">학교 통학</button>
+    <button class="chip on">조용한 생활</button>
+    <button class="chip">요리 자주 함</button>
+    <button class="chip">재택 공부</button>
+    <button class="chip">첫 자취</button>
+</div>
+
+<div class="sh">사진<small>최대 5장</small></div>
+<div class="up" data-up="5" data-prev="#prev">
+    <input type="file" accept="image/*" multiple hidden>
+    <button type="button" class="upb"><span>+</span>사진 추가</button>
+</div>
+<div class="pbtns">
+    <button class="btn out">임시 저장</button>
+    <button class="btn pri">방 등록하기</button>
+</div>
+</section>
+</div></main>
+<script src="app.js"></script>
+
+</body>
+</html>
