@@ -19,5 +19,14 @@
 <div class="grid" id="homeGrid"></div>
 </main>
 <script src="app.js"></script>
+<script src="../ieumbang/auth.js"></script>
+<script>
+(function(){
+  var s=window.Auth&&Auth.session();
+  var b=document.querySelector('.un b'); if(s&&b) b.textContent=s.id;
+  var out=document.querySelector('.user .btn, .ieum-logout');
+  if(out) out.addEventListener('click',function(e){e.preventDefault();Auth.logout();location.href='../ieumbang/login.html';});
+})();
+</script>
 </body>
 </html>
