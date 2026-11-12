@@ -21,14 +21,16 @@ body {
   font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
   color: var(--text);
   background: #fff;
-  display: flex; justify-content: center;
-  padding: 24px;
-  min-width: 1361px;
+  display: block;
+  padding: 0;
+  min-width: 0;
+  overflow: hidden;
 }
 
 /* ---------- 페이지 프레임 ---------- */
 .page {
-  position: relative;
+  position: fixed; left: 0; top: 0;
+  transform-origin: 0 0;          /* 창 크기에 맞춰 JS 가 scale 과 크기를 계산 */
   width: 1313px; height: 964px;
   background: #eeeeec;
   overflow: hidden;
@@ -165,7 +167,7 @@ body[data-view="map"] .nav .tab-map { margin-left: -12px; padding: 0 12px; }
 .info p + p { margin-top: 3px; }
 .info strong { display: block; margin-top: 9px; font-size: 15px; font-weight: 800; color: var(--green-mid); }
 
-.map-find { left: 646px; top: 91px; width: 667px; height: 849px; }
+.map-find { left: 646px; top: 91px; right: 0; bottom: 24px; }
 .map-find .map-inner { left: -646px; top: -91px; }
 .map-find .zoom { right: 87px; top: 17px; height: 77px; }
 .map-find .research {
@@ -175,7 +177,7 @@ body[data-view="map"] .nav .tab-map { margin-left: -12px; padding: 0 12px; }
   box-shadow: 0 2px 8px rgba(0,0,0,.12);
   font-size: 12px; font-weight: 700; color: #2a2f2c;
 }
-.map-find .popup { left: 23px; top: 696px; width: 190px; height: 54px; padding: 11px 12px; }
+.map-find .popup { left: 23px; bottom: 99px; width: 190px; height: 54px; padding: 11px 12px; }
 .popup b { display: block; font-size: 11px; font-weight: 700; color: #1d2e27; }
 .popup span { display: block; margin-top: 6px; font-size: 10.5px; color: #6a726e; }
 
@@ -248,10 +250,10 @@ body[data-view="map"] .nav .tab-map { margin-left: -12px; padding: 0 12px; }
 .night p { margin-top: 8px; font-size: 11px; color: #3c4540; }
 .night span { display: block; margin-top: 14px; font-size: 10px; color: var(--gray); }
 
-.map-neighbor { left: 421px; top: 89px; width: 892px; height: 851px; }
+.map-neighbor { left: 421px; top: 89px; right: 0; bottom: 24px; }
 .map-neighbor .map-inner { left: -421px; top: -89px; }
-.map-neighbor .zoom { left: 737px; top: 14px; height: 76px; }
-.popup-wide { left: 24px; top: 712px; width: 276px; height: 40px; display: flex; align-items: center; padding: 0 14px; }
+.map-neighbor .zoom { right: 119px; top: 14px; height: 76px; }
+.popup-wide { left: 24px; bottom: 97px; width: 276px; height: 40px; display: flex; align-items: center; padding: 0 14px; }
 .popup-wide span { margin: 0; font-size: 12px; color: #1d2e27; }
 .popup-wide .dots { margin-right: 10px; letter-spacing: -1px; font-size: 10px; color: #1b3a30; }
 
@@ -304,3 +306,7 @@ body[data-view="map"] .nav .tab-map { margin-left: -12px; padding: 0 12px; }
 .cats li:hover:not(.on) { background: #f0f3f1; }
 .seg button { white-space: nowrap; min-width: 74px; }
 .seg button.on { width: auto; }
+
+/* 창이 넓어져도 도로가 끊기지 않게 길게 늘림 */
+.road.h { width: 3000px !important; }
+.road.v { height: 3000px !important; }

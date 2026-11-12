@@ -102,10 +102,10 @@
     </div>
   </div>
 
+  <script src="auth.js"></script>
   <script>
     // 데모용 로그인 처리: 실제 서비스에서는 서버 인증 API로 교체하세요.
     (function () {
-      var DEV_BYPASS = true;   // ← 백엔드 연결 후 false 로 변경
       var body = document.body;
       var setState = function (s) { body.setAttribute('data-state', s); };
 
@@ -114,13 +114,11 @@
 
       document.getElementById('login-form').addEventListener('submit', function (e) {
         e.preventDefault();
-        var pw = document.getElementById('pw').value;
         var id = document.getElementById('uid').value.trim();
-        // 백엔드 연결 전에는 DEV_BYPASS = true → 아이디·비밀번호를 비우지만 않으면 로그인 성공
-        // (비우고 누르면 오류 화면 확인 가능). 백엔드 연결 후에는 false 로 바꾸고 아래 TODO 에 API 결과를 연결하세요.
-        if (DEV_BYPASS) { setState(id && pw ? 'done' : 'error'); return; }
-        // TODO: fetch('/api/login', ...) 결과로 분기 (임시: 비밀번호 ewha1234! 이면 성공)
-        setState(pw === 'ewha1234!' ? 'done' : 'error');
+        var pw = document.getElementById('pw').value;
+        // 가입한 계정(또는 테스트 계정 ewha_kim / ewha1234!)과 일치할 때만 성공
+        // TODO: 백엔드 연결 후 Auth.login 대신 fetch('/api/login', ...) 결과로 분기
+        Auth.login(id, pw).then(function (r) { setState(r.ok ? 'done' : 'error'); });
       });
 
       document.getElementById('pw').addEventListener('focus', function () {
@@ -133,6 +131,7 @@
       });
 
       document.getElementById('logout').addEventListener('click', function () {
+        Auth.logout();
         setState('default');
       });
     })();

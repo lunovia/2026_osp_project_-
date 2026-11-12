@@ -315,12 +315,12 @@ body[data-view="account"] .stepper { top: 266px; left: calc(50% - 229px); }
   transform: translateY(-46%);
   display: flex; flex-direction: column; align-items: flex-start;
 }
-.check-badge, .done-check {
+.done-body .check-badge, .done-body .done-check {
   position: static;
   width: calc(132 * var(--u)); height: calc(132 * var(--u));
   margin-left: calc(30 * var(--u));
 }
-.check-badge svg, .done-check svg { width: 47%; height: 47%; }
+.done-body .check-badge svg, .done-body .done-check svg { width: 47%; height: 47%; }
 .done-title {
   position: static; margin: calc(34 * var(--u)) 0 0 calc(18 * var(--u));
   font-size: calc(58 * var(--u)); line-height: calc(80 * var(--u));
@@ -345,3 +345,8 @@ body[data-view="done"] { display: block; padding: 0; min-width: 0; overflow: hid
 /* ---------- 창 전체 채우기 ---------- */
 /* .frame 은 창 전체(배경), .stage 는 1370x1065 디자인 영역(세로 가운데 정렬). JS 가 scale 과 크기를 계산 */
 .stage { position: absolute; left: 0; right: 0; top: 0; height: 1065px; }
+
+/* 입력 오류 표시 */
+.input.err { border-color: var(--red-line); background: var(--red-bg); }
+.form-error { position: absolute; left: 80px; bottom: 14px; font-size: 14px; font-weight: 700; color: var(--red); }
+.form-error:empty { display: none; }

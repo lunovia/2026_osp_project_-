@@ -7,6 +7,19 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
+  /* ---------- 창 크기에 맞추기 ---------- */
+  // 1313x964 디자인을 비율 유지로 맞추되, 남는 가로/세로 공간은 지도 영역이 채움
+  var pageScale = 1;
+  function fitPage() {
+    var pg = $('.page');
+    pageScale = Math.min(innerHeight / 964, innerWidth / 1313, 1.5);
+    pg.style.width = innerWidth / pageScale + 'px';
+    pg.style.height = innerHeight / pageScale + 'px';
+    pg.style.transform = 'scale(' + pageScale + ')';
+  }
+  addEventListener('resize', fitPage);
+  fitPage();
+
   /* ---------- 토스트 ---------- */
   var toastEl = $('#toast'), toastTimer;
   function toast(msg) {
@@ -15,6 +28,11 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 1800);
   }
+
+  /* ---------- 로그인 사용자 표시 / 로그아웃 ---------- */
+  var sess = window.Auth && Auth.session();
+  if (sess) $('#user-name').textContent = sess.id;
+  $('#logout-link').addEventListener('click', function () { Auth.logout(); });
 
   /* ---------- 뷰 전환 ---------- */
   var q = new URLSearchParams(location.search).get('view');
@@ -53,7 +71,7 @@
       if (!down) return;
       var dx = e.clientX - sx, dy = e.clientY - sy;
       if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
-      tx = stx + dx; ty = sty + dy; apply(false);
+      tx = stx + dx / pageScale; ty = sty + dy / pageScale; apply(false);
     });
     window.addEventListener('pointerup', function () { down = false; mapEl.classList.remove('grabbing'); });
     return { wasDrag: function () { return moved; } };

@@ -130,6 +130,7 @@
           <label class="agree"><input type="checkbox" id="agree" checked><i></i><span>[필수] 이용약관 및 개인정보 수집·이용에 동의해요.</span></label>
           <button class="btn-join" type="submit">가입하기</button>
         </div>
+        <p class="form-error" id="form-error" role="alert"></p>
       </form>
     </section>
   </div><!-- /stage -->
@@ -155,6 +156,7 @@
     </div>
   </div>
 
+  <script src="auth.js"></script>
   <script>
     // 데모용 처리: 실제 서비스에서는 서버 API로 교체하세요.
     (function () {
@@ -193,10 +195,33 @@
 
       document.getElementById('to-account').addEventListener('click', function () { go('account'); });
 
-      document.getElementById('account-form').addEventListener('submit', function (e) {
+      var form = document.getElementById('account-form');
+      var errEl = document.getElementById('form-error');
+      function fail(msg, id) {
+        errEl.textContent = msg;
+        form.querySelectorAll('.input').forEach(function (i) { i.classList.remove('err'); });
+        if (id) { var el = document.getElementById(id); el.classList.add('err'); el.focus(); }
+      }
+      form.addEventListener('input', function () { fail('', null); });
+
+      form.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (!document.getElementById('agree').checked) return;
-        go('done');
+        var v = function (id) { return document.getElementById(id).value.trim(); };
+        var uid = v('uid'), nick = v('nick'), tel = v('tel');
+        var pw = document.getElementById('pw').value, pw2 = document.getElementById('pw2').value;
+        if (!/^[A-Za-z0-9]{4,16}$/.test(uid)) return fail('아이디는 영문, 숫자 조합 4~16자로 입력해 주세요.', 'uid');
+        if (!nick) return fail('닉네임을 입력해 주세요.', 'nick');
+        if (tel && !/^01[0-9]-?\d{3,4}-?\d{4}$/.test(tel)) return fail('전화번호 형식을 확인해 주세요. 예) 010-1234-5678', 'tel');
+        if (pw.length < 8) return fail('비밀번호는 8자 이상 입력해 주세요.', 'pw');
+        if (pw !== pw2) return fail('비밀번호가 서로 달라요. 다시 확인해 주세요.', 'pw2');
+        if (!document.getElementById('agree').checked) return fail('이용약관 및 개인정보 수집·이용에 동의해 주세요.', null);
+        var purpose = (form.querySelector('input[name="purpose"]:checked') || {}).value;
+        var email = document.getElementById('account-email').textContent;
+        // TODO: 백엔드 연결 후 Auth.signup 대신 fetch('/api/signup', ...) 로 교체
+        Auth.signup({ id: uid, nick: nick, tel: tel, pw: pw, purpose: purpose, email: email }).then(function (r) {
+          if (!r.ok) return fail(r.error, r.field);
+          go('done');
+        });
       });
     })();
   </script>
