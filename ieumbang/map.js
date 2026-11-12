@@ -286,6 +286,7 @@
     });
   });
   applyRadius(5);
+  pins.forEach(function (p) { p.classList.remove('dim'); });   // 피그마 기본 상태: 모든 핀 선명하게 (도보 5/10분 버튼을 누르면 반경 밖 핀이 흐려짐)
 
   pins.forEach(function (p) {
     p.addEventListener('click', function () {

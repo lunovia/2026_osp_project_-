@@ -165,9 +165,10 @@
       var go =function (v) { body.setAttribute('data-view', v); };
       var q = new URLSearchParams(location.search).get('view');
       if (q) go(q);
+      if (q === 'email-error') document.getElementById('code').value = '123456';   // 피그마 오류 화면과 동일한 예시 값
 
       // 인증번호 타이머 (3분)
-      var remain = 168, timerEl = document.getElementById('timer');
+      var remain = (q === 'email-error') ? 131 : 168, timerEl = document.getElementById('timer');
       function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
       timerEl.textContent = fmt(remain);
       setInterval(function () { if (remain > 0) timerEl.textContent = fmt(--remain); }, 1000);

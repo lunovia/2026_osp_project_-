@@ -129,7 +129,7 @@ body[data-view="email"] .code-block .v-email { display: block; }
 .card-email .code-block .label { margin-top: 40px; }
 .row { display: flex; gap: 12px; margin-top: 19px; }
 .input-box {
-  flex: 1; height: 70px;
+  flex: 1; min-width: 0; height: 70px;
   display: flex; align-items: center; gap: 12px;
   padding: 0 24px;
   border: 2px solid var(--border); border-radius: 18px; background: #fff;
@@ -143,7 +143,7 @@ body[data-view="email"] .code-block .v-email { display: block; }
 .eg { font-size: 19px; color: #7d8581; }
 .timer { font-size: 18px; font-weight: 700; color: #2b332f; font-variant-numeric: tabular-nums; }
 .btn-sub, .btn-main {
-  width: 165px; height: 70px; border-radius: 16px;
+  flex: 0 0 165px; width: 165px; height: 70px; border-radius: 16px;
   font-size: 18px; font-weight: 700;
 }
 .btn-sub { background: var(--green-light); color: var(--green); }
