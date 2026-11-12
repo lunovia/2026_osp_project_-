@@ -11,10 +11,12 @@
   // 1313x964 디자인을 비율 유지로 맞추되, 남는 가로/세로 공간은 지도 영역이 채움
   var pageScale = 1;
   function fitPage() {
-    var pg = $('.page');
-    pageScale = Math.min(innerHeight / 964, innerWidth / 1313, 1.5);
+    var pg = $('.page'), hh = window.ieumHeaderH ? window.ieumHeaderH() : 61;
+    // 위쪽 61px(예전 메뉴 자리)은 공통 상단 메뉴가 덮어요. 나머지가 창 아래쪽까지 꽉 차게 맞춤
+    pageScale = Math.min((innerHeight - hh) / (964 - 61), innerWidth / 1313, 1.5);
     pg.style.width = innerWidth / pageScale + 'px';
-    pg.style.height = innerHeight / pageScale + 'px';
+    pg.style.height = (innerHeight - hh) / pageScale + 61 + 'px';
+    pg.style.top = (hh - 61 * pageScale) + 'px';
     pg.style.transform = 'scale(' + pageScale + ')';
   }
   addEventListener('resize', fitPage);
@@ -29,11 +31,6 @@
     toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 1800);
   }
 
-  /* ---------- 로그인 사용자 표시 / 로그아웃 ---------- */
-  var sess = window.Auth && Auth.session();
-  if (sess) $('#user-name').textContent = sess.id;
-  $('#logout-link').addEventListener('click', function () { Auth.logout(); });
-
   /* ---------- 방 제목 클릭 → 매물 상세(팀원 페이지) ---------- */
   $$('.room h3').forEach(function (h) {
     h.style.cursor = 'pointer'; h.title = '자세히 보기';
@@ -43,13 +40,6 @@
   /* ---------- 뷰 전환 ---------- */
   var q = new URLSearchParams(location.search).get('view');
   if (q === 'find' || q === 'map') body.setAttribute('data-view', q);
-  $$('.nav nav a').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      var v = a.getAttribute('data-go');
-      if (v === 'find' || v === 'map') { e.preventDefault(); body.setAttribute('data-view', v); }
-      // 홈/방 내놓기/물려주기/후기는 href 대로 다른 페이지로 이동
-    });
-  });
 
   /* ---------- 지도 줌 / 드래그 ---------- */
   function setupMap(mapEl, ox, oy) {

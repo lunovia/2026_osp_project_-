@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>이음방 지도</title>
-  <link rel="stylesheet" href="map.css">
+  <link rel="stylesheet" href="common.css">
+<link rel="stylesheet" href="map.css">
 </head>
 <!--
   화면 상태: data-view = find (방 찾기, 기본) | map (동네 지도)
@@ -14,18 +15,6 @@
 <div class="page">
 
   <!-- ===== 공통 상단 네비게이션 ===== -->
-  <header class="nav">
-    <a class="logo" href="../files/index.html">이음방</a>
-    <nav>
-      <a href="../files/index.html" data-go="home">홈</a>
-      <a href="#" data-go="find" class="tab-find">방 찾기</a>
-      <a href="../files/post.html" data-go="sell">방 내놓기</a>
-      <a href="../files/find.html" data-go="share">물려주기</a>
-      <a href="#" data-go="map" class="tab-map">동네 지도</a>
-      <a href="../ieumbang-Mary%27sPart/ReviewList.html" data-go="review">후기</a>
-    </nav>
-    <div class="user"><span id="user-name">ewha_in</span> 님 <a class="logout" id="logout-link" href="login.html">로그아웃</a></div>
-  </header>
 
   <!-- =====================================================
        VIEW 1 : 방 찾기
@@ -204,6 +193,7 @@
 <div class="toast" id="toast"></div>
 
 <script src="auth.js"></script>
+<script src="common.js"></script>
 <script src="map.js"></script>
 <script src="kakao-config.js"></script>
 <script src="kakao-map.js"></script>
