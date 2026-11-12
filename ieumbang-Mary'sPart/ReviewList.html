@@ -61,27 +61,63 @@
         <div class="ft">cook_ewha · 2026.09.18</div>
       </article>
   </section>
-  <div class="pg"><button>‹</button><button class="on">1</button><button>2</button><button>3</button><button>›</button></div>
+  <div class="pg" id="pg"></div>
 </main>
 </div>
 <script src="../ieumbang/auth.js"></script>
 <script src="../ieumbang/common.js"></script>
 <script>
 (function(){
-  var grid=document.getElementById('rgrid'), cards=[].slice.call(grid.children).map(function(c,i){c._i=i;return c;});
-  var f='all';
+  var PER=6, grid=document.getElementById('rgrid'), pg=document.getElementById('pg');
+  var cards=[].slice.call(grid.children);
+  // 2·3페이지용 추가 후기 (최신순으로 이어짐)
+  var EXTRA=[
+    ['in',4,'ewha_dawn','채광 좋고 조용해서 과제하기 딱이에요','원룸 · 대현동 · 월세 52 / 보증금 500','거주 1년','2026.09.15','오전엔 해가 잘 들고 건물 자체가 조용해요. 도서관 대신 집에서 공부하는 날이 많았어요.','수압이 샤워할 때 살짝 약해요. 관리실에 말씀드리면 점검은 해주세요.',1],
+    ['in',5,'ewha_sun','집주인분이 정말 친절하세요','투룸 · 신촌동 · 월세 70 / 보증금 1000','거주 2년','2026.09.12','보일러 고장 났을 때 당일에 사람을 불러 주셨어요. 계약 연장도 편하게 해주셨어요.','방음이 아주 좋은 편은 아니에요. 복도 소리가 가끔 들려요.',2],
+    ['give',4,'min_ewha','전기밥솥 상태가 생각보다 좋았어요','전기밥솥 · 대현동','','2026.09.10','내솥이 깨끗하고 취사도 잘 돼요. 설명서까지 같이 주셨어요.','보온 기능은 오래 쓰면 밥이 조금 말라요.',3],
+    ['in',3,'hill_walk','역까지 가깝지만 골목이 어두워요','원룸 · 아현동 · 월세 45 / 보증금 500','거주 1년','2026.09.05','지하철역까지 3분이라 출퇴근이 정말 편했어요. 가격도 이 동네에서는 저렴한 편이에요.','밤에 골목 가로등이 적어서 늦게 오면 조금 무서워요.',4],
+    ['in',5,'spring_i','신축이라 풀옵션이 전부 새것이에요','풀옵션 원룸 · 신촌동 · 월세 65 / 보증금 1000','거주 6개월','2026.09.01','에어컨, 세탁기, 냉장고까지 전부 새것이라 따로 살 게 없었어요.','관리비가 따로 나와서 여름엔 부담이 있어요.',5],
+    ['give',5,'bookworm_e','책장 조립까지 해서 주셨어요','5단 책장 · 대현동','','2026.08.28','튼튼하고 책이 많이 들어가요. 운반만 하면 되도록 조립해서 주셨어요.','크기가 커서 엘리베이터 없는 건물이면 옮기기 힘들어요.',6],
+    ['in',4,'lemon_ewha','주변에 식당이 많아서 편해요','원룸 · 신촌동 · 월세 58 / 보증금 500','거주 1년 6개월','2026.08.25','집 앞에 식당과 편의점이 많아서 끼니 걱정이 없었어요.','주말 밤에는 술집 때문에 조금 시끄러워요.',1],
+    ['in',3,'quiet_rain','오래된 건물이라 곰팡이는 감안하셔야 해요','원룸 · 북아현동 · 월세 40 / 보증금 300','거주 1년','2026.08.20','월세가 정말 저렴하고 집주인분이 방해하지 않으세요.','장마철에는 벽 쪽 곰팡이 관리를 꼭 해야 해요.',2],
+    ['give',4,'cozy_ewha','전신 거울 + 행거 세트 만족해요','거울·행거 세트 · 아현동','','2026.08.15','흠집 없이 깨끗했고 설명도 친절하게 해주셨어요.','행거 조립 나사가 하나 부족해서 직접 구했어요.',3],
+    ['in',5,'sunny_e','학교까지 걸어서 5분이라 아침이 여유로워요','원룸 · 대현동 · 월세 55 / 보증금 500','거주 2년','2026.08.10','수업 10분 전에 나가도 되고 점심에 집에 와서 쉬기도 좋았어요.','주변이 조용한 대신 늦게 여는 가게가 적어요.',4],
+    ['in',4,'ewha_pine','복층이라 공간이 넉넉해요','복층 원룸 · 신촌동 · 월세 60 / 보증금 700','거주 1년','2026.08.05','침실과 생활 공간이 분리돼서 손님이 와도 부담이 없어요.','여름엔 위층이 더워서 에어컨을 오래 켜야 해요.',5],
+    ['give',5,'ewha_oven','에어프라이어 거의 새것이에요','에어프라이어 · 신촌동','','2026.08.01','구성품이 다 있고 세척도 깨끗했어요. 요리가 훨씬 쉬워졌어요.','부피가 커서 작은 주방에는 놓을 곳이 애매해요.',6]
+  ];
+  function stars(n){var s='';for(var i=0;i<n;i++)s+='★';var r='';for(var j=n;j<5;j++)r+='★';return s+'<i>'+r+'</i>';}
+  EXTRA.forEach(function(e){
+    var give=e[0]==='give',a=document.createElement('article');
+    a.className='rc';a.dataset.type=e[0];a.dataset.score=e[1];
+    a.onclick=function(){location.href='Reviewdetails.html';};
+    a.innerHTML='<div class="hd"><div class="th" style="background-image:url(image/reviewimage'+e[9]+'.'+(e[9]===1?'png':'jpg')+')"></div><div>'
+      +'<div class="l1"><span class="tg'+(give?' pe':'')+'">'+(give?'물려주기 후기':'입주 후기')+'</span><span class="st">'+stars(e[1])+'</span><span class="sc">'+e[1]+'.0</span></div>'
+      +'<h3>'+e[3]+'</h3><div class="mt">'+e[4]+'</div></div></div>'
+      +'<div class="pc"><p><b>장점</b>'+e[7]+'</p><p><b class="bad">단점</b>'+e[8]+'</p></div>'
+      +'<div class="ft">'+e[2]+(e[5]?' · '+e[5]:'')+' · '+e[6]+'</div>';
+    cards.push(a);
+  });
+  cards.forEach(function(c,i){c._i=i;});
+  var f='all',page=1;
   function draw(){
     var by=document.getElementById('sort').value;
     var list=cards.filter(function(c){return f==='all'||c.dataset.type===f;});
     list.sort(function(a,b){return by==='score'?(b.dataset.score-a.dataset.score||a._i-b._i):a._i-b._i;});
-    grid.innerHTML='';list.forEach(function(c){grid.appendChild(c);});
+    var pages=Math.max(1,Math.ceil(list.length/PER));
+    if(page>pages)page=pages;
+    grid.innerHTML='';
+    list.slice((page-1)*PER,page*PER).forEach(function(c){grid.appendChild(c);});
+    var h='<button data-p="'+Math.max(1,page-1)+'">‹</button>';
+    for(var i=1;i<=pages;i++)h+='<button data-p="'+i+'"'+(i===page?' class="on"':'')+'>'+i+'</button>';
+    h+='<button data-p="'+Math.min(pages,page+1)+'">›</button>';
+    pg.innerHTML=h;
     if(window.ieumFit)ieumFit();
   }
+  pg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;page=+b.dataset.p;draw();});
   [].forEach.call(document.querySelectorAll('.fchip'),function(b){b.addEventListener('click',function(){
-    [].forEach.call(document.querySelectorAll('.fchip'),function(x){x.classList.remove('on');});b.classList.add('on');f=b.dataset.f;draw();});});
-  document.getElementById('sort').addEventListener('change',draw);
-  [].forEach.call(document.querySelectorAll('.pg button'),function(b){b.addEventListener('click',function(){
-    if(/^\d$/.test(b.textContent)){[].forEach.call(document.querySelectorAll('.pg button'),function(x){x.classList.remove('on');});b.classList.add('on');}});});
+    [].forEach.call(document.querySelectorAll('.fchip'),function(x){x.classList.remove('on');});b.classList.add('on');f=b.dataset.f;page=1;draw();});});
+  document.getElementById('sort').addEventListener('change',function(){page=1;draw();});
+  draw();
 })();
 </script>
 </body>
