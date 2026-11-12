@@ -8,4 +8,4 @@
  *     python -m http.server 8000 으로 띄운 뒤 http://localhost:8000/ieumbang/map.html 로 접속하세요.)
  * 3) 키가 비어 있으면 기본(그림) 지도가 그대로 표시됩니다.
  */
-window.KAKAO_MAP_KEY = '';
+window.KAKAO_MAP_KEY = 'ebcacbd265864d13517d0c9b9865235c';
