@@ -72,12 +72,54 @@
     <button type="button" class="upb"><span>+</span>사진 추가</button><div class="th" style="background-image:url(../ieumbang/img/room1.jpg)"><button type="button" aria-label="사진 삭제">×</button></div><div class="th" style="background-image:url(../ieumbang/img/room2.jpg)"><button type="button" aria-label="사진 삭제">×</button></div>
 </div>
 <div class="pbtns">
-    <button class="btn out">임시 저장</button>
-    <button class="btn pri">방 등록하기</button>
+    <button type="button" class="btn out" id="saveDraft">임시 저장</button>
+    <button type="button" class="btn pri" id="submitPost">방 등록하기</button>
 </div>
 </section>
 </div></main>
 <script src="app.js"></script>
+<script>
+(function(){
+  var $=function(q){return document.querySelector(q)};
+  function toast(msg,cb){
+    var t=document.createElement('div');t.className='ieum-toast';t.textContent=msg;document.body.appendChild(t);
+    requestAnimationFrame(function(){t.classList.add('show')});
+    setTimeout(cb,1200);
+  }
+  function collect(){
+    return {
+      id:Date.now(),
+      title:'채광 좋은 남향 원룸',
+      loc:'서울 서대문구 대현동 · 정문 도보 7분',
+      price:'월세 50 / 보증금 500',
+      memo:$('#memo').value.trim(),
+      rates:[].map.call(document.querySelectorAll('.rg input'),function(i){return i.value}),
+      rec:[].map.call(document.querySelectorAll('.chips.rec .chip.on'),function(c){return c.textContent}),
+      photos:document.querySelectorAll('.up .th').length,
+      savedAt:new Date().toISOString()
+    };
+  }
+  function get(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return []}}
+  function set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  var busy=false;
+  $('#submitPost').onclick=function(){
+    if(busy)return;busy=true;
+    var d=collect(),list=get('ieumbang_posts');list.push(d);set('ieumbang_posts',list);
+    toast('등록되었습니다',function(){location.href='index.html'});
+  };
+  $('#saveDraft').onclick=function(){
+    if(busy)return;busy=true;
+    var d=collect(),list=get('ieumbang_drafts');list.push(d);set('ieumbang_drafts',list);
+    toast('임시 저장되었습니다',function(){location.href='drafts.html'});
+  };
+  // 임시 저장에서 "이어서 작성" 으로 들어온 경우 값 복원
+  var m=location.search.match(/draft=(\d+)/);
+  if(m){var d=get('ieumbang_drafts').filter(function(x){return String(x.id)===m[1]})[0];
+    if(d){$('#memo').value=d.memo;$('#memo').dispatchEvent(new Event('input'));
+      [].forEach.call(document.querySelectorAll('.rg input'),function(i,n){i.value=d.rates[n];i.dispatchEvent(new Event('input'))});
+      [].forEach.call(document.querySelectorAll('.chips.rec .chip'),function(c){c.classList.toggle('on',d.rec.indexOf(c.textContent)>-1)});}}
+})();
+</script>
 
 </div>
 <script src="../ieumbang/auth.js"></script>
