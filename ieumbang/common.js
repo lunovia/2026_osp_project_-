@@ -26,7 +26,7 @@
     var html = '<header class="ieum-hd"><a class="ieum-logo" href="../files/index.html">이음방</a><nav>';
     MENU.forEach(function (m) { html += '<a href="' + m[2] + '" data-k="' + m[0] + '">' + m[1] + '</a>'; });
     html += '</nav><div class="ieum-user"><span><b id="ieum-uid">ewha_in</b> 님</span>' +
-            '<button type="button" class="ieum-logout" id="ieum-logout">로그아웃</button></div></header>';
+            '<a class="ieum-logout" id="ieum-inbox" href="../files/inbox.html">문의함</a><button type="button" class="ieum-logout" id="ieum-logout">로그아웃</button></div></header>';
     wrap.innerHTML = html;
     body.appendChild(wrap);
     if (holder) holder.parentNode.removeChild(holder);

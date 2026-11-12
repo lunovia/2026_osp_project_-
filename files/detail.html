@@ -59,8 +59,8 @@
 <div class="kv"><span>크기 · 층</span><b>6.5평 · 3층/5층</b></div>
 <div class="kv"><span>관리비</span><b>5만 원 (인터넷 포함)</b></div>
 <div class="kv"><span>등록한 학생</span><b>ewha_in · <span style="color:var(--g)">1년 6개월 거주 · 후기 4.9</span></b></div>
-<div class="act"><button class="hb" aria-label="찜하기">♡</button><button class="btn pri">살던 학생에게 문의하기</button></div>
-<button class="btn ol">방문 약속 잡기</button>
+<div class="act"><button class="hb" aria-label="찜하기">♡</button><button class="btn pri" id="goAsk">살던 학생에게 문의하기</button></div>
+<button class="btn ol" id="goVisit">방문 약속 잡기</button>
 </section>
 </div>
 
@@ -105,8 +105,10 @@
     gi:[["빨래 건조대","상태 좋음"],["스텐 냄비 세트","사용감 있음"]],
     ds:"복층 구조에 베란다가 있어 공간 활용이 좋은 원룸입니다. 학교까지 오르막길이 있어 여름에는 다소 힘들 수 있어요."}
   };
-  var d=D[id];if(!d)return;
   var q=function(s){return document.querySelector(s)};
+  q("#goAsk").onclick=function(){location.href="inquiry.html?id="+id+"&mode=ask"};
+  q("#goVisit").onclick=function(){location.href="inquiry.html?id="+id+"&mode=visit"};
+  var d=D[id];if(!d)return;
   document.title="이음방 · "+d.t;
   q("h1").textContent=d.t;q(".ad").textContent=d.ad;
   q(".prc").innerHTML="월세 "+d.rent+"만 원 <small>/ 보증금 "+d.dep+"만 원</small>";

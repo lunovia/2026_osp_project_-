@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이음방 · 문의하기</title>
+<link rel="stylesheet" href="../ieumbang/common.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-active="find" data-dw="1200">
+<div class="ieum-page">
+<div id="ieum-header"></div>
+<main class="wrap">
+<h1 class="ttl">살던 학생에게 문의하기</h1>
+<p class="sub">궁금한 점을 골라 보내면, 살던 학생이 확인하고 답변해 드려요.</p>
+<div class="iq">
+  <aside class="side">
+    <div class="ph pic" id="sPh"></div>
+    <div class="tags"><span class="tg">살던 학생 소개</span></div>
+    <h3 id="sT"></h3><span class="lo" id="sL"></span><span class="pr" id="sP"></span>
+    <div class="who">살던 학생 <b id="sW"></b></div>
+  </aside>
+  <section class="form">
+    <div class="seg"><button type="button" data-m="ask">궁금한 점 문의</button><button type="button" data-m="visit">방문 약속 잡기</button></div>
+    <div id="secAsk">
+      <div class="sh">궁금한 점을 골라 주세요<small>복수 선택</small></div>
+      <div class="chips" id="qs"></div>
+    </div>
+    <div id="secVisit" hidden>
+      <div class="sh">방문 희망 날짜</div>
+      <input type="date" id="vd">
+      <div class="sh">희망 시간대</div>
+      <div class="chips" id="vt"></div>
+    </div>
+    <div class="sh">추가로 전하고 싶은 말<small>선택</small></div>
+    <textarea id="msg" maxlength="200" placeholder="예) 12월 초 입주를 생각하고 있어요."></textarea>
+    <div class="err" id="err"></div>
+    <div class="btns"><button type="button" class="btn out" id="back">취소</button><button type="button" class="btn pri" id="send">문의 보내기</button></div>
+  </section>
+</div>
+</main>
+</div>
+<script src="../ieumbang/auth.js"></script>
+<script src="../ieumbang/common.js"></script>
+<script>
+(function(){
+  var P=new URLSearchParams(location.search),id=+P.get('id')||1,mode=P.get('mode')==='visit'?'visit':'ask';
+  var R={1:['채광 좋은 남향 원룸','서울 서대문구 대현동 · 정문까지 도보 7분','월세 50 / 보증금 500','ewha_in'],
+         2:['분리형 원룸, 방음 좋아요','서울 서대문구 신촌동 · 정문까지 도보 12분','월세 55 / 보증금 500','pear_23'],
+         3:['풀옵션 신축 오피스텔','서울 마포구 아현동 · 정문까지 도보 15분','월세 62 / 보증금 1000','night_owl'],
+         4:['베란다 있는 복층 원룸','서울 서대문구 북아현동 · 정문까지 도보 10분','월세 48 / 보증금 500','loft_kim']};
+  var r=R[id]||R[1],$=function(q){return document.querySelector(q)};
+  $('#sT').textContent=r[0];$('#sL').textContent=r[1];$('#sP').textContent=r[2];$('#sW').textContent=r[3];
+  $('#sPh').style.backgroundImage='url(../ieumbang/img/room'+((id-1)%4+1)+'.jpg)';
+  var Q=['채광은 어떤가요?','방음은 괜찮나요?','수압·온수는 잘 나오나요?','관리비는 실제로 얼마나 나오나요?','밤길은 안전한가요?','곰팡이·결로는 없나요?','물려주는 물건은 아직 남아 있나요?','입주 시기를 조정할 수 있나요?'];
+  var T=['오전 (9–12시)','오후 (12–18시)','저녁 (18–21시)'];
+  function chips(el,list,single){el.innerHTML=list.map(function(x){return '<button type="button" class="chip">'+x+'</button>'}).join('');
+    [].forEach.call(el.children,function(c){c.onclick=function(){if(single)[].forEach.call(el.children,function(o){o.classList.remove('on')});c.classList.toggle('on',single?true:!c.classList.contains('on'))}})}
+  chips($('#qs'),Q,false);chips($('#vt'),T,true);
+  var d=new Date();d.setDate(d.getDate()+1);$('#vd').min=d.toISOString().slice(0,10);
+  function setMode(m){mode=m;[].forEach.call(document.querySelectorAll('.seg button'),function(b){b.classList.toggle('on',b.dataset.m===m)});
+    $('#secAsk').hidden=m!=='ask';$('#secVisit').hidden=m!=='visit';$('#err').textContent='';
+    document.querySelector('h1').textContent=m==='visit'?'방문 약속 잡기':'살던 학생에게 문의하기';if(window.ieumFit)ieumFit();}
+  [].forEach.call(document.querySelectorAll('.seg button'),function(b){b.onclick=function(){setMode(b.dataset.m)}});
+  setMode(mode);
+  $('#back').onclick=function(){history.length>1?history.back():location.href='detail.html?id='+id};
+  $('#send').onclick=function(){
+    var sel=function(el){return [].filter.call(el.children,function(c){return c.classList.contains('on')}).map(function(c){return c.textContent})};
+    var rec={id:Date.now(),roomId:id,roomTitle:r[0],owner:r[3],from:(window.Auth&&Auth.session()||{}).id||'guest',type:mode,
+      questions:mode==='ask'?sel($('#qs')):[],date:mode==='visit'?$('#vd').value:'',time:mode==='visit'?(sel($('#vt'))[0]||''):'',
+      msg:$('#msg').value.trim(),createdAt:new Date().toISOString(),reply:'',repliedAt:''};
+    if(mode==='ask'&&!rec.questions.length){$('#err').textContent='궁금한 점을 하나 이상 골라 주세요.';return}
+    if(mode==='visit'&&(!rec.date||!rec.time)){$('#err').textContent='방문 희망 날짜와 시간대를 골라 주세요.';return}
+    var L;try{L=JSON.parse(localStorage.getItem('ieumbang_inquiries')||'[]')}catch(e){L=[]}
+    L.push(rec);try{localStorage.setItem('ieumbang_inquiries',JSON.stringify(L))}catch(e){}
+    this.disabled=true;var t=document.createElement('div');t.className='ieum-toast';t.textContent=mode==='visit'?'방문 요청을 보냈어요':'문의를 보냈어요';document.body.appendChild(t);
+    requestAnimationFrame(function(){t.classList.add('show')});setTimeout(function(){location.href='inbox.html'},1200);
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이음방 · 문의함</title>
+<link rel="stylesheet" href="../ieumbang/common.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-active="" data-dw="1200">
+<div class="ieum-page">
+<div id="ieum-header"></div>
+<main class="wrap">
+<h1 class="ttl">문의함</h1>
+<p class="sub">보낸 문의의 답변을 확인하고, 받은 문의에 답변할 수 있어요.</p>
+<div class="ib-tabs"><button type="button" class="on" data-t="sent">보낸 문의</button><button type="button" data-t="recv">받은 문의</button></div>
+<p class="ib-note" id="note" hidden>서버가 없는 시연 화면이라, 받은 문의 탭에는 이 브라우저에서 보낸 모든 문의가 보여요.</p>
+<div id="list"></div>
+</main>
+</div>
+<script src="../ieumbang/auth.js"></script>
+<script src="../ieumbang/common.js"></script>
+<script>
+(function(){
+  var K='ieumbang_inquiries',tab='sent',box=document.getElementById('list');
+  function get(){try{return JSON.parse(localStorage.getItem(K)||'[]')}catch(e){return []}}
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function fmt(s){var t=new Date(s);return t.getFullYear()+'.'+(t.getMonth()+1)+'.'+t.getDate()+' '+('0'+t.getHours()).slice(-2)+':'+('0'+t.getMinutes()).slice(-2)}
+  function me(){return (window.Auth&&Auth.session()||{}).id||'guest'}
+  function render(){
+    document.getElementById('note').hidden=tab!=='recv';
+    var l=get().filter(function(x){return tab==='sent'?x.from===me():true}).reverse();
+    if(!l.length){box.innerHTML='<div class="ib-empty">'+(tab==='sent'?'보낸 문의가 없어요.<br>방 상세에서 "살던 학생에게 문의하기"를 눌러 보세요.':'받은 문의가 없어요.')+'</div>';return}
+    box.innerHTML=l.map(function(x){
+      var body=x.type==='visit'?'<ul><li>희망 날짜: '+esc(x.date)+'</li><li>희망 시간대: '+esc(x.time)+'</li></ul>':'<ul>'+x.questions.map(function(q){return '<li>'+esc(q)+'</li>'}).join('')+'</ul>';
+      var h='<div class="ib-item"><div class="h"><span class="tg'+(x.type==='visit'?' pe':'')+'">'+(x.type==='visit'?'방문 약속':'문의')+'</span><h3>'+esc(x.roomTitle)+' · '+(tab==='sent'?esc(x.owner)+' 님에게':esc(x.from)+' 님이 보냄')+'</h3><span class="when">'+fmt(x.createdAt)+'</span></div>'+body+(x.msg?'<div class="msg">“'+esc(x.msg)+'”</div>':'');
+      if(x.reply)h+='<div class="rep"><b>답변</b> · '+esc(x.owner)+' · '+fmt(x.repliedAt)+'<br>'+esc(x.reply)+'</div>';
+      else if(tab==='recv')h+='<div class="rf"><input placeholder="답변을 입력해 주세요" data-r="'+x.id+'"><button type="button" class="btn pri" data-s="'+x.id+'">답변 보내기</button></div>';
+      else h+='<div class="msg">아직 답변이 없어요.</div>';
+      return h+'</div>'}).join('');
+    [].forEach.call(box.querySelectorAll('[data-s]'),function(b){b.onclick=function(){
+      var id=b.dataset.s,v=box.querySelector('[data-r="'+id+'"]').value.trim();if(!v)return;
+      var L=get();L.forEach(function(x){if(String(x.id)===id){x.reply=v;x.repliedAt=new Date().toISOString()}});
+      localStorage.setItem(K,JSON.stringify(L));render()}});
+  }
+  [].forEach.call(document.querySelectorAll('.ib-tabs button'),function(b){b.onclick=function(){tab=b.dataset.t;
+    [].forEach.call(document.querySelectorAll('.ib-tabs button'),function(x){x.classList.toggle('on',x===b)});render();if(window.ieumFit)ieumFit()}});
+  render();
+})();
+</script>
+</body>
+</html>
