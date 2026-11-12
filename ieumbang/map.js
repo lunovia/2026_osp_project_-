@@ -39,10 +39,9 @@
   if (q === 'find' || q === 'map') body.setAttribute('data-view', q);
   $$('.nav nav a').forEach(function (a) {
     a.addEventListener('click', function (e) {
-      e.preventDefault();
       var v = a.getAttribute('data-go');
-      if (v === 'find' || v === 'map') body.setAttribute('data-view', v);
-      else toast('준비 중인 페이지예요');   // TODO: 홈/방 내놓기/물려주기/후기 연결
+      if (v === 'find' || v === 'map') { e.preventDefault(); body.setAttribute('data-view', v); }
+      // 홈/방 내놓기/물려주기/후기는 href 대로 다른 페이지로 이동
     });
   });
 

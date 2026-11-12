@@ -11,6 +11,18 @@
 </head>
 
 <body>
+    <header class="ieum-nav">
+        <a class="ieum-logo" href="../files/index.html">이음방</a>
+        <nav>
+            <a href="../files/index.html">홈</a>
+            <a href="../ieumbang/map.html">방 찾기</a>
+            <a href="../files/post.html">방 내놓기</a>
+            <a href="../files/find.html">물려주기</a>
+            <a href="../ieumbang/map.html?view=map">동네 지도</a>
+            <a href="ReviewList.html" class="on">후기</a>
+        </nav>
+    </header>
+
 
     <div class="container">
 
@@ -18,6 +30,7 @@
 
         <p id="shortdesc">살아본 이화인이 남긴 솔직한 후기예요</p>
 
+        <a class="write-link" href="ReviewWritingpg.html">+ 후기 쓰기</a>
         <div class="filter-buttons">
             <button class="filterbtn" id="allbtn">전체</button>
             <button class="filterbtn" id="moveinbtn">입주 후기</button>
@@ -309,5 +322,8 @@
    
     
 
+<script>
+document.querySelectorAll(".review-box").forEach(function(b){b.addEventListener("click",function(){location.href="Reviewdetails.html";});});
+</script>
 </body>
 </html>
