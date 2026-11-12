@@ -9,9 +9,9 @@ const ph=r=>`<div class="ph pic" style="background-image:url(../ieumbang/img/roo
 const tags=(r,n)=>`<div class="tags"><span class="tg">살던 학생 소개</span>${r.g?`<span class="tg pe">물려주기${n?" "+r.g:""}</span>`:""}</div>`;
 
 /* 홈 · 방 찾기 렌더링 */
-if($("#homeGrid"))$("#homeGrid").innerHTML=rooms.map(r=>`<a class="card" href="detail.html">${ph(r)}<div class="bd">${tags(r)}<h4>${r.t}</h4><span class="lo">${r.l}</span><span class="pr">${r.p}</span></div></a>`).join("");
+if($("#homeGrid"))$("#homeGrid").innerHTML=rooms.map((r,i)=>`<a class="card" href="detail.html?id=${i+1}">${ph(r)}<div class="bd">${tags(r)}<h4>${r.t}</h4><span class="lo">${r.l}</span><span class="pr">${r.p}</span></div></a>`).join("");
 if($("#findRows")){
-  $("#findRows").innerHTML=rooms.map((r,i)=>{const [d,w]=r.l.split(" · ");return `<div class="card" data-i="${i}">${ph(r)}<div class="bd">${tags(r,1)}<h4><a href="detail.html">${r.t}</a></h4><span class="lo">${d} · ${r.m} · ${w}</span><span class="lo">${r.f}</span><span class="pr">${r.p}</span></div></div>`}).join("");
+  $("#findRows").innerHTML=rooms.map((r,i)=>{const [d,w]=r.l.split(" · ");return `<div class="card" data-i="${i}">${ph(r)}<div class="bd">${tags(r,1)}<h4><a href="detail.html?id=${i+1}">${r.t}</a></h4><span class="lo">${d} · ${r.m} · ${w}</span><span class="lo">${r.f}</span><span class="pr">${r.p}</span></div></div>`}).join("");
   $("#pins").innerHTML=rooms.map((r,i)=>`<button class="pin" data-i="${i}" style="left:${r.x}%;top:${r.y}%">${r.pin}</button>`).join("");
   var pick=i=>{
     $$("#findRows .card,.pin").forEach(e=>e.classList.toggle("on",e.dataset.i==i));
@@ -66,7 +66,7 @@ $$("[data-up]").forEach(box=>{
 /* 사진 추가 기능 (매물 상세: 갤러리) */
 const gal=$("[data-gal]");
 if(gal){
-  const max=+gal.dataset.gal,inp=$("input",gal),gm=$("#gm"),gt=$("#gt"),files=["../ieumbang/img/room1.jpg","../ieumbang/img/room2.jpg","../ieumbang/img/room3.jpg","../ieumbang/img/room4.jpg","../ieumbang/img/room1.jpg"];let cur=0;
+  const max=+gal.dataset.gal,inp=$("input",gal),gm=$("#gm"),gt=$("#gt"),base=(+new URLSearchParams(location.search).get("id")||1)-1,files=[0,1,2,3,4].map(i=>`../ieumbang/img/room${(base+i)%4+1}.jpg`);let cur=0;
   const draw=()=>{
     if(files[cur]){gm.style.backgroundImage=`url(${files[cur]})`;gm.innerHTML="";}
     else{gm.style.backgroundImage="";gm.innerHTML="<span>+</span>사진 추가";}

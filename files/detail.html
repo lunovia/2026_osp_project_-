@@ -81,6 +81,48 @@
 
 </main>
 <script src="app.js"></script>
+<script>
+(function(){
+  var id=+new URLSearchParams(location.search).get("id")||1;
+  var D={
+   1:null,
+   2:{t:"분리형 원룸, 방음 좋아요",ad:"서울 서대문구 신촌동 · 정문까지 도보 12분",rent:55,dep:500,mv:"입주 가능 · 12월",give:0,size:"7평 · 3층/5층",fee:"4만 원 (인터넷 포함)",who:"pear_23",stay:"1년 거주 · 후기 4.0",
+    fac:["세탁기","냉장고","에어컨","분리형 주방","드라이룸","도어락","침대","책상","옷장","CCTV"],
+    bars:[["채광",3.8],["방음",4.7],["수압",4.0],["보안",4.2]],
+    qt:"주방이 미닫이문으로 나뉘어 있어서 고기를 구워도 침대에 냄새가 안 배요. 신촌역까지 5분이라 알바 다니기도 좋았어요.",
+    gi:[["전기밥솥","거의 새것"],["접이식 테이블","상태 좋음"]],
+    ds:"신촌역과 가까워 이동이 편하고 주변에 카페와 식당이 많은 분리형 원룸입니다. 벽이 얇은 편이라 옆집 소리가 가끔 들릴 수 있어요."},
+   3:{t:"풀옵션 신축 오피스텔",ad:"서울 마포구 아현동 · 정문까지 도보 15분",rent:62,dep:1000,mv:"입주 가능 · 1월",give:5,size:"8평 · 7층/12층",fee:"12만 원 (인터넷 포함)",who:"night_owl",stay:"2년 거주 · 후기 5.0",
+    fac:["세탁기","냉장고","에어컨","인덕션","전자레인지","도어락","침대","책상","옷장","경비실","CCTV"],
+    bars:[["채광",4.0],["방음",4.4],["수압",4.6],["보안",5.0]],
+    qt:"역에서 집까지 큰길이라 밤에도 밝고, 1층에 경비실이 있어서 택배 걱정이 없어요. 관리비가 조금 나오는 건 감안하세요.",
+    gi:[["1인용 책상","상태 좋음"],["메쉬 의자","거의 새것"],["전신 거울","상태 좋음"]],
+    ds:"신축 풀옵션 오피스텔로 보안이 좋고 역과 가까워 늦은 귀가에도 안심이에요. 관리비가 별도로 부과됩니다."},
+   4:{t:"베란다 있는 복층 원룸",ad:"서울 서대문구 북아현동 · 정문까지 도보 10분",rent:48,dep:500,mv:"입주 가능 · 2월",give:0,size:"9평 · 복층",fee:"3만 원",who:"loft_kim",stay:"8개월 거주 · 후기 3.6",
+    fac:["세탁기","냉장고","에어컨","베란다","도어락","침대","책상","옷장"],
+    bars:[["채광",4.3],["방음",3.6],["수압",3.8],["보안",3.4]],
+    qt:"이 가격에 복층에 베란다까지 있는 방은 드물어요. 빨래도 하루면 바싹 마르지만 학교 가는 길이 계속 오르막이에요.",
+    gi:[["빨래 건조대","상태 좋음"],["스텐 냄비 세트","사용감 있음"]],
+    ds:"복층 구조에 베란다가 있어 공간 활용이 좋은 원룸입니다. 학교까지 오르막길이 있어 여름에는 다소 힘들 수 있어요."}
+  };
+  var d=D[id];if(!d)return;
+  var q=function(s){return document.querySelector(s)};
+  document.title="이음방 · "+d.t;
+  q("h1").textContent=d.t;q(".ad").textContent=d.ad;
+  q(".prc").innerHTML="월세 "+d.rent+"만 원 <small>/ 보증금 "+d.dep+"만 원</small>";
+  q(".info .tags").innerHTML='<span class="tg">'+d.mv+'</span>'+(d.give?'<span class="tg pe">물려주기 · '+d.give+'</span>':'');
+  var kv=document.querySelectorAll(".info .kv b");
+  kv[0].textContent=d.size;kv[1].textContent=d.fee;
+  kv[2].innerHTML=d.who+' · <span style="color:var(--g)">'+d.stay+'</span>';
+  q(".fc").innerHTML=d.fac.map(function(x){return "<span>✓ "+x+"</span>"}).join("");
+  q(".ds").textContent=d.ds;
+  var bars=document.querySelectorAll("#review .bar");
+  d.bars.forEach(function(b,i){bars[i].querySelector("span").textContent=b[0];bars[i].querySelector("u").style.setProperty("--w",Math.round(b[1]/5*100)+"%");bars[i].querySelector("b").textContent=b[1].toFixed(1)});
+  q("#review .qt").textContent="“"+d.qt+"”";
+  var gp=document.querySelectorAll(".panel")[2];
+  gp.innerHTML="<h3>이 방에서 물려주는 물건</h3>"+d.gi.map(function(g){return '<div class="gi"><span class="sq"></span><div>'+g[0]+'<small>'+g[1]+'</small></div><em>무료</em></div>'}).join("");
+})();
+</script>
 
 </div>
 <script src="../ieumbang/auth.js"></script>
