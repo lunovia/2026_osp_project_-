@@ -10,8 +10,8 @@ body{font-family:"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;backgrou
 .fchip.on{background:var(--g);border-color:var(--g);color:#fff;font-weight:700}
 .sort{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mu)}
 .sort select{height:34px;min-width:104px;padding:0 12px;border:1px solid var(--ln);border-radius:8px;background:#fff;font-size:13px}
-.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.rc{background:#fff;border:1px solid var(--ln);border-radius:14px;padding:14px 16px;cursor:pointer;display:flex;flex-direction:column}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,240px);gap:14px}
+.rc{height:240px;overflow:hidden;background:#fff;border:1px solid var(--ln);border-radius:14px;padding:14px 16px;cursor:pointer;display:flex;flex-direction:column}
 .rc:hover{border-color:var(--g)}
 .rc .hd{display:flex;gap:12px;align-items:flex-start}
 .rc .th{flex:none;width:58px;height:58px;border-radius:8px;background:#ddd center/cover}
