@@ -12,7 +12,6 @@
     ['home', '홈', '../files/index.html'],
     ['find', '방 찾기', '../ieumbang/map.html'],
     ['post', '방 내놓기', '../files/post.html'],
-    ['share', '물려주기', '../files/find.html'],
     ['map', '동네 지도', '../ieumbang/map.html?view=map'],
     ['review', '후기', "../ieumbang-Mary%27sPart/ReviewList.html"]
   ];

@@ -53,7 +53,6 @@ button { cursor: pointer; }
 .ieum-hd nav a:nth-child(3) { left: 281px; }
 .ieum-hd nav a:nth-child(4) { left: 365px; }
 .ieum-hd nav a:nth-child(5) { left: 444px; }
-.ieum-hd nav a:nth-child(6) { left: 523px; }
 .ieum-hd nav a.on { background: var(--g-lt); font-weight: 700; color: var(--g-dk); }
 .ieum-user { position: absolute; right: 56px; top: 13px; display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--mu); }
 .ieum-user b { font-weight: 500; }
