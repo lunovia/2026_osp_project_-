@@ -190,7 +190,7 @@ input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;bac
 /* 문의 · 문의함 */
 .iq{display:grid;grid-template-columns:340px 1fr;gap:24px;align-items:start}
 .iq .side{background:#fff;border-radius:18px;padding:20px}
-.iq .side .ph{height:190px;border-radius:12px;margin-bottom:14px}
+.iq .side .ph{width:100%;aspect-ratio:auto;height:190px;border-radius:12px;margin-bottom:14px}
 .iq .side h3{font-size:18px;margin:8px 0 4px}.iq .side .lo{display:block;color:var(--mu);font-size:13px}.iq .side .pr{display:block;color:var(--g);font-weight:700;font-size:16px;margin-top:8px}
 .iq .side .who{margin-top:14px;padding-top:14px;border-top:1px solid var(--ln);font-size:13px;color:var(--mu)}.iq .side .who b{color:var(--tx)}
 .iq .form{background:#fff;border-radius:18px;padding:26px 30px}
