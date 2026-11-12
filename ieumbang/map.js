@@ -153,6 +153,7 @@
     // 필터/검색 전에는 디자인의 "24"를 유지, 이후에는 실제 조건에 맞는 개수 표시
     $('#count').textContent = (touched || qtext) ? visible.length : visible.length + EXTRA;
     $('#empty').hidden = visible.length > 0;
+    $('#empty').innerHTML = qtext ? '“' + $('#q').value.trim().replace(/[<>&]/g, '') + '” 검색 결과가 없어요.<br>다른 동네나 시설로 검색해 보세요.' : '조건에 맞는 방이 없어요.<br>필터를 바꿔 보세요.';
     if (!visible.length) {
       route.parentNode.style.display = 'none';
       popup.style.display = 'none';
@@ -216,6 +217,9 @@
 
   /* 검색 */
   $('#q').addEventListener('input', function () { apply(); });
+  // 홈 검색창에서 넘어온 검색어(?q=대현동)를 검색창에 채우고 바로 검색
+  var q0 = new URLSearchParams(location.search).get('q');
+  if (q0) { $('#q').value = q0; apply(); }
   $('#research').addEventListener('click', function () {
     var n = apply();
     toast('이 지역에서 다시 검색했어요 · ' + n + '개');   // TODO: 지도 영역 기준 API 조회
