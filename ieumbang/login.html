@@ -112,8 +112,22 @@
       var q = new URLSearchParams(location.search).get('state');
       if (q === 'error' || q === 'done') setState(q);
 
+      // 오류 화면에서 값을 고치지 않고 '다시 로그인'을 누르면, 입력 화면으로 돌아가 비밀번호를 다시 입력하게 함
+      var edited = false;
+      ['uid', 'pw'].forEach(function (k) {
+        document.getElementById(k).addEventListener('input', function () { edited = true; });
+      });
+
       document.getElementById('login-form').addEventListener('submit', function (e) {
         e.preventDefault();
+        if (body.getAttribute('data-state') === 'error' && !edited) {
+          setState('default');
+          var pwEl = document.getElementById('pw');
+          pwEl.value = '';
+          pwEl.focus();
+          return;
+        }
+        edited = false;
         var id = document.getElementById('uid').value.trim();
         var pw = document.getElementById('pw').value;
         // 가입한 계정(또는 테스트 계정 ewha_kim / ewha1234!)과 일치할 때만 성공
