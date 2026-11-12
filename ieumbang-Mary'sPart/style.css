@@ -10,7 +10,7 @@ body {
 
 #reviews {
     font-weight: bold;
-    color: #2F5D45;
+    color: #1f6552;
 }
 
 
@@ -42,15 +42,15 @@ body {
 .filterbtn {
     border-radius: 13px;
     padding: 7px 13px;
-    border: 1px solid #2F5D45;
+    border: 1px solid #1f6552;
     background-color: white;
-    color: #2F5D45;
+    color: #1f6552;
     margin-right: 8px;
     cursor: pointer;
 }
 
 #allbtn {
-    background-color: #2F5D45;
+    background-color: #1f6552;
     color: white;
 }
 
@@ -248,14 +248,14 @@ body {
     position: center;
     border-radius: 7px;
     padding: 7px 13px;
-    border: 1px solid #2F5D45;
+    border: 1px solid #1f6552;
     background-color: white;
-    color: #2F5D45;
+    color: #1f6552;
     margin-right: 3px;
     cursor: pointer;
 }
 .page:hover {
-    background-color: #2F5D45;
+    background-color: #1f6552;
     color: white;
     cursor: pointer;
 }
@@ -516,8 +516,8 @@ body {
 
 /* Edit Button */
 .edit-btn:hover {
-    background-color: #2F5D45;
-    border-color: #2F5D45;
+    background-color: #1f6552;
+    border-color: #1f6552;
     color: white;
     transition: 0.2s ease;
 }
@@ -1041,15 +1041,3 @@ body {
     }
 
 }
-
-/* 이음방 공통 상단 메뉴 */
-.ieum-nav { display:flex; align-items:center; gap:36px; height:60px; padding:0 40px; background:#fff; border-bottom:1px solid #e6e4df; }
-.ieum-logo { font-size:22px; font-weight:800; color:#1b3a30; text-decoration:none; }
-.ieum-nav nav { display:flex; gap:8px; }
-.ieum-nav nav a { padding:8px 14px; border-radius:10px; font-size:15px; color:#333; text-decoration:none; }
-.ieum-nav nav a:hover { background:#eef3f0; }
-.ieum-nav nav a.on { background:#dfeae4; color:#1b3a30; font-weight:700; }
-.review-box { cursor:pointer; }
-.write-link { display:inline-block; margin:6px 0 14px; padding:9px 18px; border-radius:10px; background:#2F5D45; color:#fff; text-decoration:none; font-size:14px; }
-
-.ieum-logout { margin-left:auto; padding:7px 14px; border:1px solid #ddd; border-radius:10px; font-size:14px; color:#333; text-decoration:none; background:#fff; }

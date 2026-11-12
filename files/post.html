@@ -5,32 +5,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>이음방 · 방 내놓기</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../ieumbang/common.css">
 <link rel="stylesheet" href="style.css">
 </head>
 
 
 
-<body>
-<header class="hd">
-    <a class="logo" href="index.html">
-    <svg viewBox="0 0 30 30">
-        <rect width="30" height="30" rx="8" fill="#205e4b"/>
-        <path d="M8 14l7-6 7 6v8H8z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>
-    </svg>이음방</a>
-
-    <nav class="nav">
-        <a href="index.html">홈</a>
-        <a href="../ieumbang/map.html">방 찾기</a>
-        <a href="post.html" class=on>방 내놓기</a>
-        <a href="find.html">물려주기</a>
-        <a href="../ieumbang/map.html?view=map">동네 지도</a>
-        <a href="../ieumbang-Mary%27sPart/ReviewList.html">후기</a>
-    </nav><div class="user">
-        
-<span class="un"><b>ewha_in</b> 님</span>
-<button class="btn">로그아웃</button></div>
-</header>
+<body data-active="post" data-dw="1280">
+<div class="ieum-page">
+<div id="ieum-header"></div>
 
 
 <main class="wrap">
@@ -38,7 +21,7 @@
 <p class="sub">직접 살아본 경험이 다음에 이사 올 학생에게 가장 큰 도움이 돼요.</p>
 <div class="pst">
 <aside class="sum">
-<div class="ph" id="prev" style="--bg:#e8e0d3;--bl:#9db8ae"><i></i><b></b></div>
+<div class="ph pic" id="prev" style="background-image:url(../ieumbang/img/room1.jpg)"></div>
 <div class="tags"><span class="tg">살던 학생 소개</span><span class="tg pe">물려주기</span></div>
 
 <h3>채광 좋은 남향 원룸</h3>
@@ -86,7 +69,7 @@
 <div class="sh">사진<small>최대 5장</small></div>
 <div class="up" data-up="5" data-prev="#prev">
     <input type="file" accept="image/*" multiple hidden>
-    <button type="button" class="upb"><span>+</span>사진 추가</button>
+    <button type="button" class="upb"><span>+</span>사진 추가</button><div class="th" style="background-image:url(../ieumbang/img/room1.jpg)"><button type="button" aria-label="사진 삭제">×</button></div><div class="th" style="background-image:url(../ieumbang/img/room2.jpg)"><button type="button" aria-label="사진 삭제">×</button></div>
 </div>
 <div class="pbtns">
     <button class="btn out">임시 저장</button>
@@ -96,14 +79,8 @@
 </div></main>
 <script src="app.js"></script>
 
+</div>
 <script src="../ieumbang/auth.js"></script>
-<script>
-(function(){
-  var s=window.Auth&&Auth.session();
-  var b=document.querySelector('.un b'); if(s&&b) b.textContent=s.id;
-  var out=document.querySelector('.user .btn, .ieum-logout');
-  if(out) out.addEventListener('click',function(e){e.preventDefault();Auth.logout();location.href='../ieumbang/login.html';});
-})();
-</script>
+<script src="../ieumbang/common.js"></script>
 </body>
 </html>

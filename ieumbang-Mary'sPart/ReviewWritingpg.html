@@ -6,22 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write a Review</title>
 
+    <link rel="stylesheet" href="../ieumbang/common.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="review.css">
 </head>
 
-<body>
-    <header class="ieum-nav">
-        <a class="ieum-logo" href="../files/index.html">이음방</a>
-        <nav>
-            <a href="../files/index.html">홈</a>
-            <a href="../ieumbang/map.html">방 찾기</a>
-            <a href="../files/post.html">방 내놓기</a>
-            <a href="../files/find.html">물려주기</a>
-            <a href="../ieumbang/map.html?view=map">동네 지도</a>
-            <a href="ReviewList.html" class="on">후기</a>
-        </nav>
-        <a class="ieum-logout" href="../ieumbang/login.html">로그아웃</a>
-    </header>
+<body class="wr" data-active="review" data-dw="1180">
+<div class="ieum-page">
+    <div id="ieum-header"></div>
 
 
     <main class="write-page">
@@ -196,17 +188,11 @@
 
     </main>
 
+</div>
+<script src="../ieumbang/auth.js"></script>
+<script src="../ieumbang/common.js"></script>
 <script>
 var wb=document.querySelector(".write-back"); if(wb) wb.addEventListener("click",function(){location.href="ReviewList.html";});
-</script>
-<script src="../ieumbang/auth.js"></script>
-<script>
-(function(){
-  var s=window.Auth&&Auth.session();
-  var b=document.querySelector('.un b'); if(s&&b) b.textContent=s.id;
-  var out=document.querySelector('.user .btn, .ieum-logout');
-  if(out) out.addEventListener('click',function(e){e.preventDefault();Auth.logout();location.href='../ieumbang/login.html';});
-})();
 </script>
 </body>
 </html>

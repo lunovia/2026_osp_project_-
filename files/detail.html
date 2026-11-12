@@ -9,41 +9,22 @@
 <title>이음방 · 매물 상세</title>
 
 <!--폰트 비롯한 스타일 지정-->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../ieumbang/common.css">
 <link rel="stylesheet" href="style.css">
 </head>
 
 
 
-<body>
+<body data-active="find" data-dw="1440">
+<div class="ieum-page">
 
 
 
-<header class="hd">
-    <a class="logo" href="index.html">
-        <svg viewBox="0 0 30 30">
-        <rect width="30" height="30" rx="8" fill="#205e4b"/>
-        <path d="M8 14l7-6 7 6v8H8z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>
-        </svg>이음방
-    </a>
-    <nav class="nav">
-        <a href="index.html">홈</a>
-        <a href="../ieumbang/map.html" class=on>방 찾기</a>
-        <a href="post.html">방 내놓기</a>
-        <a href="find.html">물려주기</a>
-        <a href="../ieumbang/map.html?view=map">동네 지도</a>
-        <a href="../ieumbang-Mary%27sPart/ReviewList.html">후기</a>
-    </nav>
-    <div class="user">
-        <span class="un"> <!-- 로그인 메뉴 -->
-            <b>ewha_in</b> 님</span>
-            <button class="btn">로그아웃</button>
-        </div>
-</header>
+<div id="ieum-header"></div>
 
 
 
-<main class="wrap">
+<main class="wrap wide">
 <div class="dt">
 <section class="gal" data-gal="10">
     <input type="file" accept="image/*" multiple hidden>
@@ -101,14 +82,8 @@
 </main>
 <script src="app.js"></script>
 
+</div>
 <script src="../ieumbang/auth.js"></script>
-<script>
-(function(){
-  var s=window.Auth&&Auth.session();
-  var b=document.querySelector('.un b'); if(s&&b) b.textContent=s.id;
-  var out=document.querySelector('.user .btn, .ieum-logout');
-  if(out) out.addEventListener('click',function(e){e.preventDefault();Auth.logout();location.href='../ieumbang/login.html';});
-})();
-</script>
+<script src="../ieumbang/common.js"></script>
 </body>
 </html>

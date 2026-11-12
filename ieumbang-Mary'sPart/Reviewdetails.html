@@ -1,176 +1,42 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detailed Review</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이음방 · 후기 상세</title>
+<link rel="stylesheet" href="../ieumbang/common.css">
+<link rel="stylesheet" href="review.css">
 </head>
-
-<body>
-    <header class="ieum-nav">
-        <a class="ieum-logo" href="../files/index.html">이음방</a>
-        <nav>
-            <a href="../files/index.html">홈</a>
-            <a href="../ieumbang/map.html">방 찾기</a>
-            <a href="../files/post.html">방 내놓기</a>
-            <a href="../files/find.html">물려주기</a>
-            <a href="../ieumbang/map.html?view=map">동네 지도</a>
-            <a href="ReviewList.html" class="on">후기</a>
-        </nav>
-        <a class="ieum-logout" href="../ieumbang/login.html">로그아웃</a>
-    </header>
-
-
-    <div class="container">
-
-        <p class="pathdetails">거주 후기 › 후기 상세</p>
-
-        <!-- Detailed Review Box -->
-        <div class="detailreview">
-
-            <!-- 1. REVIEW HEADER -->
-            <div class="detail-header">
-
-                <div class="rating">
-                    <span class="category">입주 후기</span>
-                    <span class="stars">★★★★☆</span>
-                    <span class="score">4.0</span>
-                </div>
-
-                <h2>남향이라 한겨울에도 가스비가 덜 나왔어요</h2>
-
-                <p class="detail-location">
-                    ewha_mint · 거주 1년 6개월 · 2026.10.05
-                </p>
-
-            </div>
-
-            <hr class="detail-divider">
-
-            <!-- 2. ROOM INFORMATION -->
-            <div class="room-info">
-
-                <img src="image/reviewimage1.png" alt="Room photo">
-
-                <div class="room-text">
-                    <p>후기를 남긴 방</p>
-                    <h4>채광 좋은 남향 원룸</h4>
-                    <span>대현동 · 월세 50 / 보증금 500 · 정문 도보 7분</span>
-                </div>
-
-                <span class="room-arrow">›</span>
-
-            </div>
-
-            <!-- 3. DETAILED RATINGS -->
-            <section class="rating-details">
-
-                <h3>항목별 평가</h3>
-
-                <div class="rating-grid">
-
-                    <div class="rating-card">
-                        <span>채광</span>
-                        <strong>5 <small>★★★★★</small></strong>
-                    </div>
-
-                    <div class="rating-card">
-                        <span>방음</span>
-                        <strong>3 <small>★★★☆☆</small></strong>
-                    </div>
-
-                    <div class="rating-card">
-                        <span>보안 · 방범</span>
-                        <strong>4 <small>★★★★☆</small></strong>
-                    </div>
-
-                    <div class="rating-card">
-                        <span>설명과 일치</span>
-                        <strong>5 <small>★★★★★</small></strong>
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- 4. REVIEW DESCRIPTION -->
-            <section class="detail-description">
-
-                <div class="good-section">
-                    <h3>좋았던 점</h3>
-
-                    <p>
-                        작년 3월에 들어와서 1년 반 살았어요.
-                        남향인 데다 앞 건물이 낮아서 집집 지나면
-                        방 안쪽까지 해가 들어와요. 덕분에 한겨울에도
-                        보일러를 오래 안 틀어도 가스비가 생각보다
-                        적게 나왔어요.
-                    </p>
-                </div>
-
-                <div class="bad-section">
-                    <h3>아쉬웠던 점</h3>
-
-                    <p>
-                        겨울에는 창문 결로가 심해서 아침마다
-                        마른 수건으로 닦아야 했어요. 며칠 안 닦아두니
-                        창틀에 곰팡이가 생기더라고요.
-                    </p>
-                </div>
-
-            </section>
-
-            <!-- 5. REVIEW PHOTOS -->
-            <section class="detail-photos">
-
-                <h3>사진</h3>
-
-                <div class="photo-gallery">
-                    <img src="image/preview2.jpg" alt="Room photo 1">
-                    <img src="image/preview3.jpg" alt="Room photo 2">
-                    <img src="image/preview4.jpg" alt="Room photo 3">
-                </div>
-
-            </section>
-
-            <hr class="detail-divider">
-
-            <!-- 6. HELPFUL BUTTON -->
-            <div class="helpful-section">
-                <button class="helpful-btn">
-                    도움 됐어요 12
-                </button>
-            </div>
-
-        </div>
-
-        <!-- 7. BOTTOM BUTTONS -->
-        <div class="detail-buttons">
-
-            <button class="back-btn">‹ 목록으로</button>
-
-            <div>
-                <button class="edit-btn">수정</button>
-                <button class="delete-btn">삭제</button>
-            </div>
-
-        </div>
-
-    </div>
-
-<script>
-var bb=document.querySelector(".back-btn"); if(bb) bb.addEventListener("click",function(){location.href="ReviewList.html";});
-</script>
+<body data-active="review" data-dw="1180">
+<div class="ieum-page">
+<div id="ieum-header"></div>
+<main class="wrap dv">
+  <div class="crumb"><a href="ReviewList.html">거주 후기</a> › 후기 상세</div>
+  <article class="dcard">
+    <div class="l1"><span class="tg">입주 후기</span><span class="stl">★★★★<i>★</i></span><span class="sc">4.0</span></div>
+    <h1>남향이라 한겨울에도 가스비가 덜 나왔어요</h1>
+    <div class="by">ewha_mint · 거주 1년 6개월 · 2026.10.05</div>
+    <div class="room" onclick="location.href='../files/detail.html'"><div class="th" style="background-image:url(../ieumbang/img/room1.jpg)"></div>
+      <div><small>후기를 남긴 방</small><b>채광 좋은 남향 원룸</b><span>대현동 · 월세 50 / 보증금 500 · 정문 도보 7분</span></div><span class="go">›</span></div>
+    <h4>항목별 평가</h4>
+    <div class="ig"><div>채광<br><b>5</b><s>★★★★★<i></i></s></div><div>방음<br><b>3</b><s>★★★<i>★★</i></s></div><div>보안 · 방범<br><b>4</b><s>★★★★<i>★</i></s></div><div>설명과 일치<br><b>5</b><s>★★★★★<i></i></s></div></div>
+    <h5>좋았던 점</h5>
+    <p class="tx">작년 3월에 들어와서 1년 반 살았어요. 남향인 데다 앞 건물이 낮아서 점심 지나면 방 안쪽까지 해가 들어와요. 덕분에 한겨울에도 보일러를 오래 안 틀어도 가스비가 생각보다 적게 나왔어요. 정문까지 큰길 따라 7분이라 8시 수업도 7시 50분에 나가면 충분했고, 건물 옆에 편의점이랑 코인세탁소가 있어서 이불 빨래하기도 편했어요. 집주인분이 같은 건물에 사셔서 보일러가 고장 났을 때 다음 날 바로 고쳐 주신 것도 좋았어요.</p>
+    <h5 class="bad">아쉬웠던 점</h5>
+    <p class="tx">겨울에는 창문 결로가 심해서 아침마다 마른 수건으로 닦아야 했어요. 며칠 안 닦았더니 창틀에 곰팡이가 생기더라고요ㅠ 들어오실 분은 제습기 하나 있으면 좋아요. 그리고 1층이 카페라 주말 낮에는 손님 소리가 조금 올라오고, 엘리베이터가 없어서 2층이어도 이사할 때 짐 옮기기는 좀 힘들었어요. 관리비 5만 원에 인터넷은 포함인데 수도·전기는 따로 내요.</p>
+    <h4>사진</h4>
+    <div class="ph3"><div style="background-image:url(image/preview2.jpg)"></div><div style="background-image:url(image/preview3.jpg)"></div><div style="background-image:url(image/preview4.jpg)"></div></div>
+    <div class="help"><button id="hp" type="button">👍 도움이 됐어요 <span id="hn">12</span></button></div>
+  </article>
+  <div class="dact"><button type="button" onclick="location.href='ReviewList.html'">‹ 목록으로</button>
+    <div class="r"><button type="button" onclick="location.href='ReviewWritingpg.html'">수정</button><button type="button" class="del" onclick="if(confirm('이 후기를 삭제할까요?'))location.href='ReviewList.html'">삭제</button></div></div>
+</main>
+</div>
 <script src="../ieumbang/auth.js"></script>
+<script src="../ieumbang/common.js"></script>
 <script>
-(function(){
-  var s=window.Auth&&Auth.session();
-  var b=document.querySelector('.un b'); if(s&&b) b.textContent=s.id;
-  var out=document.querySelector('.user .btn, .ieum-logout');
-  if(out) out.addEventListener('click',function(e){e.preventDefault();Auth.logout();location.href='../ieumbang/login.html';});
-})();
+var hp=document.getElementById('hp'),hn=document.getElementById('hn'),on=false;
+hp.addEventListener('click',function(){on=!on;hp.classList.toggle('on',on);hn.textContent=on?13:12;});
 </script>
 </body>
 </html>

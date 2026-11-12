@@ -1,0 +1,62 @@
+/* 후기 페이지 공통 (목록 / 상세) - 색·글꼴은 ../ieumbang/common.css 의 값을 사용 */
+body{font-family:"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;background:var(--bg);color:var(--tx);margin:0}
+.wrap.rv{width:100%;max-width:1000px;margin:0 auto;padding:36px 0 40px;display:block}
+.rv h1{font-size:30px;font-weight:800;color:var(--tx);line-height:1.2}
+.rv .sub{font-size:14px;color:var(--mu);margin-top:4px}
+.rv .top{display:flex;justify-content:space-between;align-items:flex-start}
+.btn-write{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 22px;border-radius:10px;background:var(--g);color:#fff;font-weight:700;font-size:14px}
+.tools{display:flex;align-items:center;gap:8px;margin:20px 0 16px}
+.fchip{height:34px;padding:0 16px;border-radius:99px;border:1px solid var(--ln);background:#fff;font-size:13px;font-weight:500}
+.fchip.on{background:var(--g);border-color:var(--g);color:#fff;font-weight:700}
+.sort{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mu)}
+.sort select{height:34px;min-width:104px;padding:0 12px;border:1px solid var(--ln);border-radius:8px;background:#fff;font-size:13px}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rc{background:#fff;border:1px solid var(--ln);border-radius:14px;padding:14px 16px;cursor:pointer;display:flex;flex-direction:column}
+.rc:hover{border-color:var(--g)}
+.rc .hd{display:flex;gap:12px;align-items:flex-start}
+.rc .th{flex:none;width:58px;height:58px;border-radius:8px;background:#ddd center/cover}
+.rc .l1{display:flex;align-items:center;gap:8px}
+.rc .st{color:var(--star);font-size:13px;letter-spacing:1px}.rc .st i{font-style:normal;color:#d5d3cc}
+.rc .sc{font-size:12px;font-weight:700}
+.rc h3{font-size:16px;font-weight:700;margin-top:4px;line-height:1.35}
+.rc .mt{font-size:12px;color:var(--mu);margin-top:2px}
+.rc .pc{margin-top:12px;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.5}
+.rc .pc p{display:flex;gap:10px}.rc .pc b{flex:none;font-size:12px;color:var(--g)}.rc .pc b.bad{color:var(--pe-tx)}
+.rc .ft{margin-top:auto;padding-top:12px;border-top:1px solid var(--bg);font-size:12px;color:var(--mu)}
+.rc .pc+.ft{margin-top:12px}
+.pg{display:flex;justify-content:center;gap:6px;margin-top:22px}
+.pg button{width:32px;height:32px;border:1px solid var(--ln);border-radius:8px;background:#fff;font-size:13px}
+.pg button.on{background:var(--g);border-color:var(--g);color:#fff;font-weight:700}
+
+/* 후기 상세 */
+.wrap.dv{width:100%;max-width:760px;margin:0 auto;padding:26px 0 30px;display:block}
+.crumb{font-size:12px;color:var(--mu);margin-bottom:10px}
+.dcard{background:#fff;border:1px solid var(--ln);border-radius:18px;padding:26px 30px}
+.dcard .l1{display:flex;align-items:center;gap:10px}
+.dcard .stl{color:var(--star);font-size:18px}.dcard .stl i{font-style:normal;color:#d5d3cc}
+.dcard .sc{font-weight:800;font-size:16px}
+.dcard h1{font-size:26px;font-weight:800;margin-top:10px;line-height:1.3}
+.dcard .by{font-size:13px;color:var(--mu);margin:6px 0 16px;padding-bottom:16px;border-bottom:1px solid var(--ln)}
+.room{display:flex;align-items:center;gap:14px;background:var(--bg);border-radius:12px;padding:10px 14px;cursor:pointer}
+.room .th{width:64px;height:50px;border-radius:8px;background:#ddd center/cover;flex:none}
+.room small{display:block;font-size:11px;color:var(--mu)}.room b{display:block;font-size:15px}.room span{font-size:12px;color:var(--mu)}
+.room .go{margin-left:auto;font-size:20px;color:var(--mu)}
+.dcard h4{font-size:14px;font-weight:700;margin:18px 0 8px}
+.ig{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ig div{border:1px solid var(--ln);border-radius:10px;padding:8px 12px;font-size:12px;color:var(--mu)}
+.ig b{font-size:16px;color:var(--tx);margin-right:4px}.ig s{text-decoration:none;color:var(--star);font-size:12px}.ig s i{font-style:normal;color:#d5d3cc}
+.dcard h5{font-size:14px;font-weight:700;margin:18px 0 6px;color:var(--g)}.dcard h5.bad{color:var(--pe-tx)}
+.dcard p.tx{font-size:14px;line-height:1.75;color:#2a2f2c}
+.ph3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ph3 div{height:104px;border-radius:8px;background:#ddd center/cover}
+.help{display:flex;justify-content:center;margin-top:22px}
+.help button{height:36px;padding:0 20px;border:1px solid var(--ln);border-radius:99px;background:#fff;font-size:13px}
+.help button.on{border-color:var(--g);color:var(--g);font-weight:700}
+.dact{display:flex;justify-content:space-between;margin-top:14px}
+.dact .r{display:flex;gap:8px}
+.dact button{height:36px;padding:0 18px;border:1px solid var(--ln);border-radius:10px;background:#fff;font-size:13px}
+.dact .del{color:#c0392b;border-color:#efc9c3}
+
+/* 후기 쓰기 페이지: 기존 스타일 위에 공통 값만 덧씌움 */
+body.wr .container{max-width:660px}
+body.wr .write-page{min-height:0}

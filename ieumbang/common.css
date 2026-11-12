@@ -1,0 +1,68 @@
+/* =========================================================
+   이음방 공통 스타일 (팀 공통)
+   - 색/글꼴 한 곳에서 관리 : 아래 :root 값만 바꾸면 모든 페이지에 적용돼요
+   - 상단 메뉴는 common.js 가 #ieum-header 자리에 자동으로 넣어줘요
+   - 화면 맞춤: <body data-dw="디자인가로"> 로 지정하면 창 크기에 맞춰 스크롤 없이 꽉 차게 보여줘요
+   ========================================================= */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+
+:root {
+  --g: #1f6552;          /* 대표 초록 (버튼·강조) */
+  --g-dk: #1b3a30;       /* 진한 초록 (제목) */
+  --g-lt: #e3eee7;       /* 연한 초록 (칩·배경) */
+  --bg: #f2f2f0;         /* 페이지 배경 */
+  --card: #ffffff;
+  --tx: #1b1f1d;
+  --mu: #6b726e;
+  --ln: #e4e7e4;
+  --pe: #fdece0;         /* 물려주기 태그 배경 */
+  --pe-tx: #b4531c;
+  --star: #d9a21b;
+  --red: #c0392b;
+  /* 예전 변수 이름도 같은 값으로 연결 */
+  --green: var(--g); --green-dark: var(--g-dk); --green-light: var(--g-lt);
+  --text: var(--tx); --gray: var(--mu); --line: var(--ln);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  background: var(--bg); color: var(--tx); line-height: 1.5; font-size: 15px;
+  overflow: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+/* ---------- 화면 맞춤 틀 ---------- */
+.ieum-page { position: fixed; left: 0; top: 0; transform-origin: 0 0; background: var(--bg); overflow: hidden; display: flex; flex-direction: column; }
+.ieum-page > main, .ieum-page > .wrap { flex: 1 1 auto; min-height: 0; }
+
+/* ---------- 공통 상단 메뉴 ---------- */
+.ieum-hd { position: relative; flex: 0 0 61px; height: 61px; background: #fff; border-bottom: 1px solid var(--ln); z-index: 5; }
+.ieum-logo { position: absolute; left: 56px; top: 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--g-dk); }
+.ieum-hd nav a {
+  position: absolute; top: 12px; height: 36px; line-height: 36px;
+  padding: 0 12px; margin-left: -12px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; color: #2a2f2c; white-space: nowrap;
+}
+.ieum-hd nav a:nth-child(1) { left: 164px; }
+.ieum-hd nav a:nth-child(2) { left: 210px; }
+.ieum-hd nav a:nth-child(3) { left: 281px; }
+.ieum-hd nav a:nth-child(4) { left: 365px; }
+.ieum-hd nav a:nth-child(5) { left: 444px; }
+.ieum-hd nav a:nth-child(6) { left: 523px; }
+.ieum-hd nav a.on { background: var(--g-lt); font-weight: 700; color: var(--g-dk); }
+.ieum-user { position: absolute; right: 56px; top: 13px; display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--mu); }
+.ieum-user b { font-weight: 500; }
+.ieum-logout { margin-left: 6px; height: 34px; line-height: 32px; padding: 0 12px; border: 1px solid #d8dbd9; border-radius: 8px; font-size: 12px; color: #2a2f2c; background: #fff; }
+
+/* ---------- 공통 부품 ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 18px; border-radius: 10px; border: 1px solid var(--ln); background: #fff; font-weight: 500; }
+.btn.pri { background: var(--g); border-color: var(--g); color: #fff; font-weight: 700; }
+.btn.wh { background: #fff; color: var(--g); border-color: #fff; font-weight: 700; }
+.btn.ol { background: #fff; color: var(--g); border: 2px solid var(--g); font-weight: 700; }
+.tg { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 99px; background: var(--g-lt); color: var(--g); }
+.tg.pe { background: var(--pe); color: var(--pe-tx); }
+.view{display:none}.view.on{display:block}

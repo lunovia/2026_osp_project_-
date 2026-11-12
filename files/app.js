@@ -1,11 +1,11 @@
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const rooms=[
- {t:"채광 좋은 남향 원룸",l:"대현동 · 정문 도보 7분",p:"월세 50 / 보증금 500",g:3,bg:"#ece5d9",bl:"#9db8ae",pin:"50 / 500",x:52,y:62,m:"6.5평 · 2층",f:"세탁기·냉장고·에어컨 · 12월 입주",tip:"정문까지 도보 7분 · 이대역 도보 4분"},
- {t:"분리형 원룸, 방음 좋아요",l:"신촌동 · 정문 도보 12분",p:"월세 55 / 보증금 500",bg:"#e0ebe6",bl:"#dfb8a5",pin:"55",x:84,y:38,m:"7평 · 3층",f:"분리형 주방 · 도어락 · 12월 입주",tip:"정문까지 도보 12분 · 이대역 도보 8분"},
- {t:"풀옵션 신축 오피스텔",l:"아현동 · 정문 도보 15분",p:"월세 62 / 보증금 1000",g:5,bg:"#ede0dd",bl:"#a9b6d1",pin:"62",x:28,y:80,m:"8평 · 7층",f:"풀옵션 · 보안 우수 · 1월 입주",tip:"정문까지 도보 15분 · 이대역 도보 11분"},
- {t:"베란다 있는 복층 원룸",l:"북아현동 · 정문 도보 10분",p:"월세 48 / 보증금 500",bg:"#e5e8f0",bl:"#b3c8a5",pin:"48",x:86,y:80,m:"9평 · 복층",f:"베란다 · 세탁기 · 2월 입주",tip:"정문까지 도보 10분 · 이대역 도보 9분"}
+ {img:1,t:"채광 좋은 남향 원룸",l:"대현동 · 정문 도보 7분",p:"월세 50 / 보증금 500",g:3,bg:"#ece5d9",bl:"#9db8ae",pin:"50 / 500",x:52,y:62,m:"6.5평 · 2층",f:"세탁기·냉장고·에어컨 · 12월 입주",tip:"정문까지 도보 7분 · 이대역 도보 4분"},
+ {img:2,t:"분리형 원룸, 방음 좋아요",l:"신촌동 · 정문 도보 12분",p:"월세 55 / 보증금 500",bg:"#e0ebe6",bl:"#dfb8a5",pin:"55",x:84,y:38,m:"7평 · 3층",f:"분리형 주방 · 도어락 · 12월 입주",tip:"정문까지 도보 12분 · 이대역 도보 8분"},
+ {img:3,t:"풀옵션 신축 오피스텔",l:"아현동 · 정문 도보 15분",p:"월세 62 / 보증금 1000",g:5,bg:"#ede0dd",bl:"#a9b6d1",pin:"62",x:28,y:80,m:"8평 · 7층",f:"풀옵션 · 보안 우수 · 1월 입주",tip:"정문까지 도보 15분 · 이대역 도보 11분"},
+ {img:4,t:"베란다 있는 복층 원룸",l:"북아현동 · 정문 도보 10분",p:"월세 48 / 보증금 500",bg:"#e5e8f0",bl:"#b3c8a5",pin:"48",x:86,y:80,m:"9평 · 복층",f:"베란다 · 세탁기 · 2월 입주",tip:"정문까지 도보 10분 · 이대역 도보 9분"}
 ];
-const ph=r=>`<div class="ph" style="--bg:${r.bg};--bl:${r.bl}"><i></i><b></b></div>`;
+const ph=r=>`<div class="ph pic" style="background-image:url(../ieumbang/img/room${r.img}.jpg)"></div>`;
 const tags=(r,n)=>`<div class="tags"><span class="tg">살던 학생 소개</span>${r.g?`<span class="tg pe">물려주기${n?" "+r.g:""}</span>`:""}</div>`;
 
 /* 홈 · 방 찾기 렌더링 */
@@ -50,7 +50,7 @@ $$("[data-up]").forEach(box=>{
     const f=$$(".th",box);btn.style.display=f.length>=max?"none":"";
     if(prev){const first=f[0];prev.classList.toggle("has",!!first);prev.style.backgroundImage=first?first.style.backgroundImage:"";}
   };
-  btn.onclick=()=>inp.click();
+  btn.onclick=()=>inp.click();$$(".th button",box).forEach(b=>b.onclick=()=>{b.parentNode.remove();sync()});sync();
   inp.onchange=()=>{
     [...inp.files].forEach(file=>{
       if($$(".th",box).length>=max)return;
@@ -66,7 +66,7 @@ $$("[data-up]").forEach(box=>{
 /* 사진 추가 기능 (매물 상세: 갤러리) */
 const gal=$("[data-gal]");
 if(gal){
-  const max=+gal.dataset.gal,inp=$("input",gal),gm=$("#gm"),gt=$("#gt"),files=[];let cur=0;
+  const max=+gal.dataset.gal,inp=$("input",gal),gm=$("#gm"),gt=$("#gt"),files=["../ieumbang/img/room1.jpg","../ieumbang/img/room2.jpg","../ieumbang/img/room3.jpg","../ieumbang/img/room4.jpg","../ieumbang/img/room1.jpg"];let cur=0;
   const draw=()=>{
     if(files[cur]){gm.style.backgroundImage=`url(${files[cur]})`;gm.innerHTML="";}
     else{gm.style.backgroundImage="";gm.innerHTML="<span>+</span>사진 추가";}
