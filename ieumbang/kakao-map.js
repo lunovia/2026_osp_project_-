@@ -96,9 +96,27 @@
       }
 
       /* ----- 방 찾기 ----- */
+      var lastSig = null;
+      // 검색/필터로 보이는 방이 바뀌면, 남은 핀이 모두 보이도록 지도 범위를 맞춰요 (선택만 바뀔 때는 그대로)
+      function fitToVisible(m, sig) {
+        var pins = $$('.map-find .price[data-room]').filter(function (el) { return !el.classList.contains('is-off'); });
+        if (!pins.length) return;
+        if (pins.length === 1) {
+          m.map.setCenter(K(pxToLL(REF_FIND, GATE, num(pins[0], 'left'), num(pins[0], 'top'))));
+          m.map.setLevel(3);
+          return;
+        }
+        var b = new kakao.maps.LatLngBounds();
+        pins.forEach(function (el) { b.extend(K(pxToLL(REF_FIND, GATE, num(el, 'left'), num(el, 'top')))); });
+        m.map.setBounds(b);
+      }
       function renderFind() {
         var m = maps.find;
         clear(m);
+        var sig = $$('.map-find .price[data-room]').filter(function (el) { return !el.classList.contains('is-off'); })
+          .map(function (el) { return el.dataset.room; }).join(',');
+        if (lastSig !== null && sig !== lastSig && document.body.getAttribute('data-view') !== 'map') fitToVisible(m, sig);
+        lastSig = sig;
         overlay(m, pxToLL(REF_FIND, GATE, 786, 201), chip('kk-school', '이화여자대학교'), 1);
         gateNodes(m);
 
