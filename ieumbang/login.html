@@ -56,7 +56,7 @@
         <div class="pw-wrap">
           <input class="input" id="pw" name="pw" type="password" value="••••••••••" autocomplete="current-password">
           <button type="button" class="eye s-default" id="eye" aria-label="비밀번호 보기">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/><path class="slash" d="M3 3l18 18"/></svg>
           </button>
         </div>
 
@@ -141,7 +141,12 @@
 
       document.getElementById('eye').addEventListener('click', function () {
         var pw = document.getElementById('pw');
-        pw.type = pw.type === 'password' ? 'text' : 'password';
+        if (pw.value === '••••••••••') pw.value = '';   // 시안용 점 표시는 실제 값이 아니므로 비움
+        var show = pw.type === 'password';
+        pw.type = show ? 'text' : 'password';
+        this.classList.toggle('shown', show);
+        this.setAttribute('aria-label', show ? '비밀번호 숨기기' : '비밀번호 보기');
+        pw.focus();
       });
 
       document.getElementById('logout').addEventListener('click', function () {

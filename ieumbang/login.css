@@ -169,6 +169,8 @@ body:not([data-state="done"]) #view-done { display: none; }
   color: #4a524d;
 }
 .eye svg { width: 40px; height: 40px; }
+.eye .slash { display: block; }
+.eye.shown .slash { display: none; }
 
 /* 오류 상태 */
 body[data-state="error"] .input {
