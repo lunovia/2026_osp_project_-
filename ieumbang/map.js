@@ -32,6 +32,10 @@
   }
 
   /* ---------- 방 제목 클릭 → 매물 상세(팀원 페이지) ---------- */
+  $$('.room').forEach(function (r) {
+    r.style.userSelect = 'none';
+    r.addEventListener('dblclick', function () { location.href = '../files/detail.html?id=' + (r.dataset.id || 1); });
+  });
   $$('.room h3').forEach(function (h) {
     h.style.cursor = 'pointer'; h.title = '자세히 보기';
     h.addEventListener('click', function (e) { e.stopPropagation(); location.href = '../files/detail.html?id=' + (h.closest('.room').dataset.id || 1); });
