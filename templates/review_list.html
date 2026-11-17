@@ -3,6 +3,52 @@
 {% block title %}리뷰 목록{% endblock %}
 
 {% block content %}
+<style>
+    main { max-width: none; margin: 40px auto; width: 480px; }
+    .review-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .review-card { text-align: center; }
+    .review-card h3 { margin: 0 0 8px; font-size: 16px; }
+    .review-card img { display: block; width: 100%; height: 200px; object-fit: cover; border-radius: 6px; }
+    .no-photo { display: flex; align-items: center; justify-content: center;
+                width: 100%; height: 200px; background: #eee; color: #888; border-radius: 6px; }
+    .pagination { margin-top: 24px; text-align: center; }
+    .pagination a { margin: 0 4px; text-decoration: none; }
+    .pagination .current { font-weight: bold; text-decoration: underline; }
+</style>
+
 <h1>리뷰 목록</h1>
-<p>작성된 리뷰를 확인하는 페이지입니다.</p>
+
+{% if not reviews %}
+<p>작성된 리뷰가 없습니다.</p>
+{% endif %}
+
+<div class="review-grid">
+    {% for review_id, review in reviews %}
+    <div class="review-card">
+        <h3>{{ review.title }}</h3>
+        {# 사진을 누르면 리뷰 상세 페이지(/reviews/<리뷰ID>)로 이동 #}
+        <a href="/reviews/{{ review_id }}">
+            {% if review.img_path %}
+            <img src="{{ url_for('static', filename='uploads/' ~ review.img_path) }}"
+                 alt="{{ review.title }}">
+            {% else %}
+            <div class="no-photo">사진 없음</div>
+            {% endif %}
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if page > 1 %}
+    <a href="{{ url_for('review_list', page=page-1) }}">Prev</a>
+    {% endif %}
+    {% for p in range(1, page_count + 1) %}
+    <a href="{{ url_for('review_list', page=p) }}"
+       {% if p == page %}class="current"{% endif %}>{{ p }}</a>
+    {% endfor %}
+    {% if page < page_count %}
+    <a href="{{ url_for('review_list', page=page+1) }}">Next</a>
+    {% endif %}
+</div>
 {% endblock %}
