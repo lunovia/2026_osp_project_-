@@ -16,15 +16,12 @@
     <tr>
         {% for name, item in row %}
         <td>
-            <div>
-    Product name:
-    <a href="{{ url_for('product_detail', name=name) }}">
-        {{ name }}
-    </a>
-</div>
+            <div>Product name: {{ name }}</div>
             {% if item.img_path %}
-            <img src="{{ url_for('static', filename='uploads/' ~ item.img_path) }}"
-                 alt="{{ name }}">
+            <a href="{{ url_for('product_detail', name=name) }}">
+                <img src="{{ url_for('static', filename='uploads/' ~ item.img_path) }}"
+                     alt="{{ name }}">
+            </a>
             {% endif %}
         </td>
         {% endfor %}

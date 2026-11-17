@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Detail:</title>
-        <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/product_detail.css') }}">
-</head>
+{% extends "base.html" %}
 
-<body>
-    <main class="product-detail">
+{% block title %}{{ product.name }} - EwhaMarket{% endblock %}
+
+{% block content %}
+    <div class="product-detail">
 
         <!--Product Image-->
        <div class="product-image">
@@ -43,8 +37,8 @@
         <button type="button" onclick="location.href='{{ url_for('register_review', name=product.name) }}'">
         Write a review
         </button>
-
-    </main>
+    </div>
+    </div>
 
 <script>
     const button = document.getElementById("like-button");
@@ -150,5 +144,4 @@
     loadLikeState();
 </script>
 
-</body>
-</html>
+{% endblock %}
