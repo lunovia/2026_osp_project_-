@@ -4,7 +4,7 @@ import uuid
 import hashlib
 import sys
 
-from flask import Flask, render_template, request, flash, redirect, url_for, session
+from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify
 from werkzeug.utils import secure_filename
 
 from database import DBhandler
@@ -105,6 +105,32 @@ def product_detail(name):
         "product_detail.html",
         product=product
     )
+
+#
+@app.route("/item_like/<name>", methods=["GET", "POST"])
+def item_like(name):
+
+    if "id" not in session:
+        return jsonify({"error": "Login required"}), 401
+
+    user_id = session["id"]
+
+
+    if request.method == "GET":
+        liked = DB.get_heart(user_id, name)
+        return jsonify({"liked": liked})
+
+
+    data = request.get_json(silent=True) or {}
+    liked = data.get("liked")
+
+
+    if not isinstance(liked, bool):
+        return jsonify({"error": "Invalid liked value"}), 400
+
+    DB.set_heart(user_id, name, liked)
+
+    return jsonify({"liked": liked})
 
 
 
