@@ -30,6 +30,9 @@
             <p>Status: {{ product.status }}</p>
             <p>Email: {{ product.email }}</p> </div>
         </div>
+        <button type="button" onclick="location.href='{{ url_for('register_review', name=product.name) }}'">
+        Write a review
+        </button>
 
     </main>
 </body>

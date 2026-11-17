@@ -23,6 +23,17 @@ class DBhandler:
 		items = self.db.child("item").get().val()
 		return items or {}
 
+	def reg_review(self, data, img_path):
+		review_info = {
+			"product_name": data["product_name"],
+			"title": data["title"],
+			"body": data["body"],
+			"rating": int(data["rating"]),
+			"img_path": img_path,
+		}
+		self.db.child("review").push(review_info)
+		return True
+	
 	def insert_user(self, data, pw):
 		user_info = {"id": data["id"], "pw": pw, "nickname": data["nickname"]}
 		if self.user_duplicate_check(data["id"]):

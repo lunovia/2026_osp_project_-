@@ -109,8 +109,24 @@ def product_detail(name):
 
 
 @app.route("/reviews/register")
-def register_review():
-    return render_template("review_register.html")
+@app.route("/reviews/register/<name>")
+def register_review(name=""):
+    return render_template("review_register.html", name=name)
+
+
+@app.route("/submit_review_post", methods=["POST"])
+def submit_review_post():
+    photo = request.files.get("photo")
+    if not photo or not photo.filename or not allowed_file(photo.filename):
+        return "Invalid image format", 400
+
+    extension = photo.filename.rsplit(".", 1)[1].lower()
+    img_path = f"{uuid.uuid4().hex}.{extension}"
+    os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+    photo.save(os.path.join(app.config["UPLOAD_FOLDER"], img_path))
+
+    DB.reg_review(request.form, img_path)
+    return redirect(url_for("review_list"))
 
 
 @app.route("/reviews")

@@ -1,8 +1,37 @@
 {% extends "base.html" %}
 
-{% block title %}리뷰 등록{% endblock %}
+{% block title %}Write a Review{% endblock %}
 
 {% block content %}
-<h1>리뷰 등록</h1>
-<p>상품에 대한 리뷰를 작성하는 페이지입니다.</p>
+<style>
+    textarea { width: 100%; margin-top: 5px; padding: 8px; box-sizing: border-box; }
+    .rating input { width: auto; }
+</style>
+
+<h1>Write a Review</h1>
+
+<form action="{{ url_for('submit_review_post') }}" method="post" enctype="multipart/form-data">
+    <p>Product:</p>
+    <input type="text" name="product_name" value="{{ name }}" required>
+
+    <p>Title:</p>
+    <input type="text" name="title" required>
+
+    <p>Review:</p>
+    <textarea id="review-body" name="body" rows="5" required></textarea>
+
+    <p>Rating:</p>
+    <div class="rating">
+        <input type="radio" name="rating" value="1" required>1
+        <input type="radio" name="rating" value="2">2
+        <input type="radio" name="rating" value="3">3
+        <input type="radio" name="rating" value="4">4
+        <input type="radio" name="rating" value="5">5
+    </div>
+
+    <p>Photo:</p>
+    <input type="file" name="photo" accept="image/png,image/jpeg,image/gif,image/webp" required>
+
+    <button type="submit">Submit review</button>
+</form>
 {% endblock %}
