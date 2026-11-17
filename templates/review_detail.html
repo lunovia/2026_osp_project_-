@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Detail - EwhaMarket</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .review-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .rating {
+            font-size: 24px;
+            color: #e6a400;
+        }
+
+        .review-body {
+            margin-top: 25px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>{{ review.title }}</h1>
+
+        <p>Product: {{ review.product_name }}</p>
+
+        <p class="rating">
+            Rating: {{ review.rating }} / 5
+        </p>
+
+        {% if review.img_path %}
+        <img
+            class="review-image"
+            src="{{ url_for('static',
+                 filename='uploads/' ~ review.img_path) }}"
+            alt="Review image">
+        {% endif %}
+
+        <div class="review-body">{{ review.body }}</div>
+
+        <a class="back-link" href="{{ url_for('review_list') }}">
+            Back to Review List
+        </a>
+    </main>
+</body>
+</html>
