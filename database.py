@@ -38,6 +38,11 @@ class DBhandler:
 		review = self.db.child("review").child(review_id).get()
 		return review.val()
 	
+	def get_reviews(self):
+		# {push 키: {...}} 딕셔너리 (push 키는 시간순). 리뷰가 없으면 {}
+		reviews = self.db.child("review").get().val()
+		return reviews or {}
+
 	def insert_user(self, data, pw):
 		user_info = {"id": data["id"], "pw": pw, "nickname": data["nickname"]}
 		if self.user_duplicate_check(data["id"]):

@@ -157,7 +157,22 @@ def submit_review_post():
 
 @app.route("/reviews")
 def review_list():
-    return render_template("review_list.html")
+    page = request.args.get("page", 1, type=int)
+    data = DB.get_reviews()
+    page_count = max(1, math.ceil(len(data) / PER_PAGE))
+    page = min(max(page, 1), page_count)  # 범위 밖 페이지 번호 보정
+
+    # 최신 리뷰가 먼저 보이도록 push 키(시간순)를 거꾸로 정렬
+    reviews = list(data.items())[::-1]
+    start = (page - 1) * PER_PAGE
+    reviews = reviews[start:start + PER_PAGE]  # [(리뷰ID, {...}), ...] 최대 4개 (2x2)
+
+    return render_template(
+        "review_list.html",
+        reviews=reviews,
+        page=page,
+        page_count=page_count,
+    )
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
