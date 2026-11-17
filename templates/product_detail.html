@@ -29,11 +29,126 @@
             <p>Address: {{ product.address }}</p>
             <p>Status: {{ product.status }}</p>
             <p>Email: {{ product.email }}</p> </div>
+
+        <div class="like-section">
+            <button
+            id="like-button"
+            type="button"
+            aria-pressed="false"
+            disabled>
+            ♡ Like
+            </button>
+            <p id="like-message" role="status"></p>
         </div>
         <button type="button" onclick="location.href='{{ url_for('register_review', name=product.name) }}'">
         Write a review
         </button>
 
     </main>
+
+<script>
+    const button = document.getElementById("like-button");
+    const message = document.getElementById("like-message");
+
+    // Product name from Flask
+    const productName = {{ product.name | tojson }};
+    const likeUrl = "/item_like/" +
+        encodeURIComponent(productName);
+
+    let liked = false;
+    let available = false;
+
+    // Update the button appearance
+    function showLikeState(value) {
+        liked = value;
+
+        button.textContent = liked ? "♥ Liked" : "♡ Like";
+        button.classList.toggle("liked", liked);
+        button.setAttribute("aria-pressed", String(liked));
+    }
+
+    // Send a request to Flask
+    async function sendLikeRequest(method, nextState) {
+        const options = {
+            method: method,
+            credentials: "same-origin"
+        };
+
+        if (method === "POST") {
+            options.headers = {
+                "Content-Type": "application/json"
+            };
+            options.body = JSON.stringify({
+                liked: nextState
+            });
+        }
+
+        const response = await fetch(likeUrl, options);
+
+        if (response.status === 401) {
+            const error = new Error(
+                "Please log in to use Like."
+            );
+            error.loginRequired = true;
+            throw error;
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                "Server error: " + response.status
+            );
+        }
+
+        const data = await response.json();
+
+        if (typeof data.liked !== "boolean") {
+            throw new Error("Invalid server response.");
+        }
+
+        return data.liked;
+    }
+
+    // Load saved Like status
+    async function loadLikeState() {
+        button.disabled = true;
+        message.textContent = "";
+
+        try {
+            const state = await sendLikeRequest("GET");
+            showLikeState(state);
+            available = true;
+        } catch (error) {
+            message.textContent = error.message;
+        } finally {
+            button.disabled = !available;
+        }
+    }
+
+    // Handle Like button click
+    button.addEventListener("click", async function () {
+        button.disabled = true;
+        message.textContent = "";
+
+        try {
+            const state = await sendLikeRequest(
+                "POST", !liked
+            );
+
+            showLikeState(state);
+        } catch (error) {
+            message.textContent = error.message;
+
+            if (error.loginRequired) {
+                available = false;
+            }
+        } finally {
+            button.disabled = !available;
+        }
+    });
+
+    // Get status when page opens
+    loadLikeState();
+</script>
+
 </body>
 </html>
