@@ -22,7 +22,11 @@ class DBhandler:
 		# {상품명: {...}} 딕셔너리 (Firebase 키 순서 = 이름순). 상품이 없으면 {}
 		items = self.db.child("item").get().val()
 		return items or {}
-
+		
+	def get_review(self, review_id):
+		review = self.db.child("review").child(review_id).get()
+		return review.val()
+	
 	def insert_user(self, data, pw):
 		user_info = {"id": data["id"], "pw": pw, "nickname": data["nickname"]}
 		if self.user_duplicate_check(data["id"]):

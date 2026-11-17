@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+
+{% block title %}리뷰 상세 - EwhaMarket{% endblock %}
+
+{% block content %}
+
+<div class="review-detail">
+
+    <h1>{{ review.title }}</h1>
+
+    <p>
+        <strong>상품명:</strong>
+        {{ review.product_name }}
+    </p>
+
+    <p>
+        <strong>평점:</strong>
+        {{ review.rating }} / 5
+    </p>
+
+    {% if review.img_path %}
+    <div class="review-image">
+        <img
+            src="{{ url_for('static', filename='uploads/' ~ review.img_path) }}"
+            alt="리뷰 사진"
+            style="max-width: 400px; width: 100%;">
+    </div>
+    {% endif %}
+
+    <h3>리뷰 내용</h3>
+
+    <p style="white-space: pre-wrap;">{{ review.body }}</p>
+
+    <a href="{{ url_for('review_list') }}">
+        리뷰 목록으로 돌아가기
+    </a>
+
+</div>
+
+{% endblock %}
