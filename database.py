@@ -63,3 +63,13 @@ class DBhandler:
 			if value["id"] == id_ and value["pw"] == pw_:
 				return True
 		return False
+
+	def get_heart(self, user_id, product_name):
+		heart = self.db.child("heart").child(user_id).child(product_name).get()
+		if heart.val() is None:
+			return False
+		return heart.val()
+
+	def set_heart(self, user_id, product_name, liked):
+		self.db.child("heart").child(user_id).child(product_name).set(liked)
+		return True
