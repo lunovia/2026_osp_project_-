@@ -33,6 +33,10 @@ class DBhandler:
 		}
 		self.db.child("review").push(review_info)
 		return True
+		
+	def get_review(self, review_id):
+		review = self.db.child("review").child(review_id).get()
+		return review.val()
 	
 	def insert_user(self, data, pw):
 		user_info = {"id": data["id"], "pw": pw, "nickname": data["nickname"]}

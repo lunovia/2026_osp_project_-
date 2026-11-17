@@ -145,6 +145,25 @@ def login():
     flash("Wrong ID or PW!")                  
     return render_template("login.html")      
 
+
+
+@app.route("/reviews/<review_id>")
+def review_detail(review_id):
+    review = DB.get_review(review_id)
+
+    if review is None:
+        return "Review not found", 404
+
+    review["review_id"] = review_id
+
+    return render_template(
+        "review_detail.html",
+        review=review
+    )
+
+
+
+
 @app.route("/logout")
 def logout():
     session.clear()              
