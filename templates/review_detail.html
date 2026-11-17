@@ -1,74 +1,41 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Detail - EwhaMarket</title>
+{% extends "base.html" %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            margin: 0;
-        }
+{% block title %}리뷰 상세 - EwhaMarket{% endblock %}
 
-        .container {
-            max-width: 850px;
-            margin: 50px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-        }
+{% block content %}
 
-        .review-image {
-            width: 100%;
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 8px;
-        }
+<div class="review-detail">
 
-        .rating {
-            font-size: 24px;
-            color: #e6a400;
-        }
+    <h1>{{ review.title }}</h1>
 
-        .review-body {
-            margin-top: 25px;
-            line-height: 1.7;
-            white-space: pre-wrap;
-        }
+    <p>
+        <strong>상품명:</strong>
+        {{ review.product_name }}
+    </p>
 
-        .back-link {
-            display: inline-block;
-            margin-top: 30px;
-        }
-    </style>
-</head>
+    <p>
+        <strong>평점:</strong>
+        {{ review.rating }} / 5
+    </p>
 
-<body>
-    <main class="container">
-        <h1>{{ review.title }}</h1>
-
-        <p>Product: {{ review.product_name }}</p>
-
-        <p class="rating">
-            Rating: {{ review.rating }} / 5
-        </p>
-
-        {% if review.img_path %}
+    {% if review.img_path %}
+    <div class="review-image">
         <img
-            class="review-image"
-            src="{{ url_for('static',
-                 filename='uploads/' ~ review.img_path) }}"
-            alt="Review image">
-        {% endif %}
+            src="{{ url_for('static', filename='uploads/' ~ review.img_path) }}"
+            alt="리뷰 사진"
+            style="max-width: 400px; width: 100%;">
+    </div>
+    {% endif %}
 
-        <div class="review-body">{{ review.body }}</div>
+    <h3>리뷰 내용</h3>
 
-        <a class="back-link" href="{{ url_for('review_list') }}">
-            Back to Review List
-        </a>
-    </main>
-</body>
-</html>
+    <p style="white-space: pre-wrap;">{{ review.body }}</p>
+
+    <a href="{{ url_for('review_list') }}">
+        리뷰 목록으로 돌아가기
+    </a>
+
+</div>
+
+{% endblock %}
