@@ -2,9 +2,9 @@
 .product-detail {
     display: flex;
     gap: 40px;
-    max-width: 1100px;
-    margin: 60px auto;
-    padding: 30px;
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 20px;
     font-family: Arial, sans-serif;
 }
 
@@ -14,9 +14,19 @@
     min-width: 0;
 }
 
+.product-image {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 .product-image img {
     width: 100%;
     border-radius: 12px;
+    max-width: 420px;
+    max-height: 420px;
+    object-fit: contain;
+    display: block;
 }
 
 .product-info h1 {
