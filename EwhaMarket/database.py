@@ -1,11 +1,17 @@
 ﻿import json
+import os
+from pathlib import Path
+
 import pyrebase
 
 class DBhandler:
 	def __init__(self):
-		f = open("./authentication/firebase_auth.json")
-		config = json.load(f)
-		f.close()
+		auth_file = Path(os.environ.get(
+			"FIREBASE_AUTH_FILE",
+			Path(__file__).resolve().parents[1] / "authentication" / "firebase_auth.json",
+		))
+		with auth_file.open(encoding="utf-8") as f:
+			config = json.load(f)
 		firebase = pyrebase.initialize_app(config)
 		self.db = firebase.database()
 

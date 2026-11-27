@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}{{ room.title }}{% endblock %}
+{% block content %}
+<a href="{{ url_for('rooms.room_list') }}">방 목록</a>
+<h1>{{ room.title }}</h1>
+{% for name in room.images %}<img width="220" src="{{ url_for('static', filename='room_uploads/' ~ name) }}" alt="방 사진 {{ loop.index }}">{% endfor %}
+<p>{{ room.address }} · {{ room.room_type }} · {{ room.status }}</p>
+<p>월세 {{ room.monthly_rent // 10000 }} / 보증금 {{ room.deposit // 10000 }} / 관리비 {{ room.maintenance_fee // 10000 }} (만원)</p>
+<p>크기 {{ room.size if room.size is not none else '미입력' }}평 · 층 {{ room.floor if room.floor is not none else '미입력' }}</p>
+<p>입주 가능일 {{ room.available_date }}</p>
+<p>등록한 학생: {{ room.owner_id }}</p>
+<p>시설: {{ room.facilities|join(', ') }}</p>
+<h2>전 세입자 한마디</h2><p>{{ room.tenant_comment }}</p>
+<p>정문까지 예상 도보 시간: {{ room.walk_minutes if room.walk_minutes is not none else '미입력' }}분</p>
+{# TODO(A): room.room_id 기준으로 후기/물려주기 연동. 아직 placeholder 버튼 없음. #}
+{% endblock %}
