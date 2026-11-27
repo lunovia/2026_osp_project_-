@@ -1,4 +1,4 @@
-﻿import math
+import math
 import os
 import uuid
 import hashlib
@@ -11,7 +11,7 @@ from database import DBhandler
 DB = DBhandler()
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "ewhamarket"
+app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY") or os.urandom(32)
 
 UPLOAD_FOLDER = os.path.join(app.root_path, "static", "uploads")
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER

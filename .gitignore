@@ -2,6 +2,7 @@ venv/
 __pycache__/
 *.pyc
 .DS_Store
-static/uploads/*
-!static/uploads/.gitkeep
+EwhaMarket/static/uploads/*
+!EwhaMarket/static/uploads/.gitkeep
 authentication/
+EumBang/backend/static/room_uploads/

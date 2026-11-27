@@ -1,0 +1,19 @@
+test_csrf_and_bad_image (test_room_backend.RoomRouteTests.test_csrf_and_bad_image) ... skipped 'Flask/Pillow not installed'
+test_login_required (test_room_backend.RoomRouteTests.test_login_required) ... skipped 'Flask/Pillow not installed'
+test_registration_list_detail_and_map (test_room_backend.RoomRouteTests.test_registration_list_detail_and_map) ... skipped 'Flask/Pillow not installed'
+test_filter_before_pagination (test_room_backend.RoomServiceTests.test_filter_before_pagination) ... ok
+test_invalid_filters (test_room_backend.RoomServiceTests.test_invalid_filters) ... ok
+test_invalid_input (test_room_backend.RoomServiceTests.test_invalid_input) ... ok
+test_map_points (test_room_backend.RoomServiceTests.test_map_points) ... ok
+test_not_found (test_room_backend.RoomServiceTests.test_not_found) ... ok
+test_optional_fields_and_empty_lists (test_room_backend.RoomServiceTests.test_optional_fields_and_empty_lists) ... ok
+test_round_trip_money_and_id (test_room_backend.RoomServiceTests.test_round_trip_money_and_id) ... ok
+test_same_title_not_overwritten (test_room_backend.RoomServiceTests.test_same_title_not_overwritten) ... ok
+test_search_and_multi_facility_filter (test_room_backend.RoomServiceTests.test_search_and_multi_facility_filter) ... ok
+test_session_owner_not_form_owner (test_room_backend.RoomServiceTests.test_session_owner_not_form_owner) ... ok
+test_sort_distance_and_deposit (test_room_backend.RoomServiceTests.test_sort_distance_and_deposit) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.001s
+
+OK (skipped=3)
